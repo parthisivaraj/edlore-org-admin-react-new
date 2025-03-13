@@ -1,0 +1,44 @@
+import { call, put, debounce } from "redux-saga/effects";
+import { nodeInstance } from "../../../api/api_instance";
+
+async function getApi(data) {
+  const search = data.search.replace(/\s+/g, " ").trim();
+  try {
+    const result = nodeInstance({
+      url: `users?search=${encodeURIComponent(search)}&page=${
+        data.page + 1
+      }&limit=${data.limit}&sort_column=${data.sorting}&sort_order=${
+        data.sort == 1 ? "asc" : data.sort == 2 ? "desc" : ""
+      }&filters=${JSON.stringify(data.filter)}&paginate=${
+        !data.paginate ? false : true
+      }`,
+      method: "GET",
+    }).then((response) => {
+      return response;
+    });
+    return await result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+function* fetchUsers(action) {
+  try {
+    const users = yield call(getApi, action.payload);
+    yield put({
+      type: "GET_ALL_USERS_WITH_CURRENT_SUCCESS",
+      users: users.data,
+    });
+  } catch (e) {
+    yield put({
+      type: "GET_ALL_USERS_WITH_CURRENT_FAILED",
+      message: e.message,
+    });
+  }
+}
+
+function* usersWithCurrentSaga() {
+  yield debounce(1000, "GET_ALL_USERS_WITH_CURRENT_REQUESTED", fetchUsers);
+}
+
+export default usersWithCurrentSaga;

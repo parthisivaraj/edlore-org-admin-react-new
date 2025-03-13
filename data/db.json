@@ -1,0 +1,350 @@
+{
+    "posts": [{
+            "id": 1,
+            "name": "Satheesh",
+            "email": "Sat@mail.com",
+            "adderss": "South street"
+        },
+        {
+            "id": 2,
+            "name": "John",
+            "email": "john@mail.com",
+            "adderss": "North street"
+        },
+        {
+            "id": 3,
+            "name": "Robert",
+            "email": "robert@mail.com",
+            "adderss": "East street"
+        },
+        {
+            "id": 4,
+            "name": "Mani",
+            "email": "mani@mail.com",
+            "adderss": "West street"
+        }
+    ],
+    "users": {
+        "pagination": {
+            "total_entries": 1,
+            "current_page": 1,
+            "per_page": 20,
+            "offset": 0
+        },
+        "data": [{
+                "user_id": "dfxgdfs",
+                "name": "Akhil",
+                "email": "akhil@gmail.com",
+                "user_role": "Admin",
+                "status": "active",
+                "id": 78
+            },
+            {
+                "user_id": "dfxgdfs",
+                "name": "Anvesh",
+                "email": "anvesh@gmail.com",
+                "user_role": "Admin",
+                "status": "active",
+                "id": 78
+            },
+            {
+                "user_id": "dfxgdfs",
+                "name": "Dilip",
+                "email": "dilip@gmail.com",
+                "user_role": "Admin",
+                "status": "active",
+                "id": 78
+            }
+        ],
+        "user_roles": [{
+            "title": "",
+            "description": "",
+            "id": 54
+        }]
+    },
+    "device_list": {
+        "device_quota": 201,
+        "device_count": 13,
+        "pagination": {
+            "total_entries": 1,
+            "current_page": 1,
+            "per_page": 20,
+            "offset": 0
+        },
+        "devices": [{
+                "name": "Wind Turbine Generator With Sub Systems",
+                "category": "Wind and solar devices",
+                "status": "active",
+                "media_count": 20,
+                "procedure_count": 55,
+                "id": 53464,
+                "image": "https://picsum.photos/200/300"
+            },
+            {
+                "name": "ABB IRB 7600 Industrial Robot...",
+                "category": "Wind and solar devices",
+                "status": "active",
+                "media_count": 20,
+                "procedure_count": 55,
+                "id": 53464,
+                "image": "https://picsum.photos/200/300"
+            },
+            {
+                "name": "Air Compressor Dewalt",
+                "category": "Wind and solar devices",
+                "status": "draft",
+                "media_count": 20,
+                "procedure_count": 55,
+                "id": 53464,
+                "image": "https://picsum.photos/200/300"
+            }
+        ],
+        "primary_categories": [{
+                "name": "one",
+                "id": "14"
+            },
+            {
+                "name": "two",
+                "id": "58"
+            }
+        ],
+        "secondary_categories": [{
+                "name": "one",
+                "id": "14"
+            },
+            {
+                "name": "two",
+                "id": "58"
+            }
+        ]
+    },
+    "models": [{
+            "title": "CNC Machine",
+            "model_id": "CN102",
+            "linked_devices": "12",
+            "id": 12
+        },
+        {
+            "title": "CNC Machine",
+            "model_id": "CN102",
+            "linked_devices": "12",
+            "id": 12
+        },
+        {
+            "title": "CNC Machine",
+            "model_id": "CN102",
+            "linked_devices": "12",
+            "id": 12
+        },
+        {
+            "title": "CNC Machine",
+            "model_id": "CN102",
+            "linked_devices": "12",
+            "id": 12
+        },
+        {
+            "title": "CNC Machine",
+            "model_id": "CN102",
+            "linked_devices": "12",
+            "id": 12
+        },
+        {
+            "title": "CNC Machine",
+            "model_id": "CN102",
+            "linked_devices": "12",
+            "id": 12
+        },
+        {
+            "title": "CNC Machine",
+            "model_id": "CN102",
+            "linked_devices": "12",
+            "id": 12
+        }
+    ],
+    "user_roles": {
+        "pagination": {
+            "total_entries": 1,
+            "current_page": 1,
+            "per_page": 20,
+            "offset": 0
+        },
+        "roles": [{
+                "user_roles": "Technician",
+                "privilages": [
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four"
+                ],
+                "status": "active",
+                "id": "1651835"
+            },
+            {
+                "user_roles": "Technician",
+                "privilages": [
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four"
+                ],
+                "status": "active",
+                "id": "1651835"
+            },
+            {
+                "user_roles": "Technician",
+                "privilages": [
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four"
+                ],
+                "status": "active",
+                "id": "1651835"
+            },
+            {
+                "user_roles": "Technician",
+                "privilages": [
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four",
+                    "One",
+                    "Two",
+                    "Three",
+                    "Four"
+                ],
+                "status": "active",
+                "id": "1651835"
+            }
+        ],
+        "features": [{
+            "name": "",
+            "description": "",
+            "id": 45,
+            "sub_features": [{
+                "title": "",
+                "id": 45
+            }]
+        }],
+        "permissions": [{
+            "name": "",
+            "description": "",
+            "id": 45,
+            "sub_permission": [{
+                "title": "",
+                "id": 45
+            }]
+        }]
+    },
+
+    "category_list": {
+        "pagination":{
+            "total_entries":1,
+            "current_page":1,
+            "per_page":20,
+            "offset":0
+        },
+        "category":[
+            {
+                "id":45,
+                "primary_category":"electronics",
+                "secondary_category":"electronics and services",
+                "no_of_models":42
+            },
+            {
+                "id":15,
+                "primary_category":"pharma",
+                "secondary_category":"pharma and bio-chemical",
+                "no_of_models":2
+            },
+            {
+                "id":5,
+                "primary_category":"food industry",
+                "secondary_category":"foods and supplies",
+                "no_of_models":4
+            },
+            {
+                "id":45,
+                "primary_category":"electronics",
+                "secondary_category":"electronics and services",
+                "no_of_models":42
+            }
+        ]
+    }
+}

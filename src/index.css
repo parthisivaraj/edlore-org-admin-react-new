@@ -1,0 +1,553 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap"); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  outline: none !important;
+}
+
+*:focus-visible {
+  outline: none !important;
+}
+
+html {
+  background-color: #f5f5f0;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+img {
+  font-size: 12px;
+  text-decoration: capitalize;
+}
+
+a:hover,
+a:focus {
+  outline: 0 !important;
+}
+
+/* Light Theme Bg color */
+.light {
+  background-color: #f5f5f0 !important;
+}
+
+.dark {
+  background-color: #262626 !important;
+}
+
+/* Sidebar Hover styles */
+.ed-sidebar:hover {
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+
+/* .ed-sidebar:hover .ed-sidebar__links{
+  margin-left: 0;
+  margin-right: 0;
+  transition:all 0.25s ease-in-out;
+} */
+/* .ed-sidebar:hover .ed-sidebar__link{
+  display:none;
+  transition:all 0.25s ease-in-out;
+} */
+/* .ed-sidebar:hover .ed-sidebar__logowrap{
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  transition:all 0.25s ease-in-out;
+} */
+
+.ed-sidebar__links img:hover {
+  opacity: 100;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+
+.ed-sidebar__links .active {
+  color: #fff;
+  font-weight: 500;
+}
+
+.ed-sidebar__links .active img {
+  opacity: 1 !important;
+}
+
+.ed-collapse__menu {
+  animation: fade 0.5s ease-in-out 1;
+  -webkit-animation: fade 0.5s ease-in-out 1;
+  -moz-animation: fade 0.5s ease-in-out 1;
+  -ms-animation: fade 0.5s ease-in-out 1;
+  -o-animation: fade 0.5s ease-in-out 1;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ed-collapse__icon {
+  animation: rotate 0.4s ease-in-out 1;
+  -webkit-animation: rotate 0.4s ease-in-out 1;
+  -moz-animation: rotate 0.4s ease-in-out 1;
+  -ms-animation: rotate 0.4s ease-in-out 1;
+  -o-animation: rotate 0.4s ease-in-out 1;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+  }
+
+  to {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+  }
+}
+
+/* Form Select */
+.ed-form__select {
+  background: url("../public/assets/icons/icon-arrow-down.svg") no-repeat;
+  background-position: calc(100% - 10px) center;
+  background-size: 22px;
+  -webkit-background-size: 22px;
+  -moz-background-size: 22px;
+  -ms-background-size: 22px;
+  -o-background-size: 22px;
+  background-color: rgba(242, 243, 245, 0.6);
+  min-width: 150px;
+  width: 100%;
+  display: block;
+}
+
+.dark .ed-form__select {
+  background: url("../public/assets/icons/icon-arrow-down-light.svg") no-repeat;
+  background-position: calc(100% - 10px) center;
+  background-size: 16px;
+  -webkit-background-size: 16px;
+  -moz-background-size: 16px;
+  -ms-background-size: 16px;
+  -o-background-size: 16px;
+  background-color: rgba(242, 243, 245, 0.6);
+  min-width: 150px;
+  width: 100%;
+  display: block;
+}
+
+.ed-form__select:focus::selection,
+.ed-form__select:focus {
+  background: url("../public/assets/icons/icon-arrow-up.svg") no-repeat;
+  background-position: calc(100% - 14px) center;
+  background-size: 13px;
+  -webkit-background-size: 13px;
+  -moz-background-size: 13px;
+  -ms-background-size: 13px;
+  -o-background-size: 13px;
+  background-color: rgba(242, 243, 245, 0.6);
+  min-width: 150px;
+  width: 100%;
+  display: block;
+}
+
+.dark .ed-form__select:focus::selection,
+.ed-form__select:focus {
+  background: url("../public/assets/icons/icon-arrow-up-light.svg") no-repeat;
+  background-position: calc(100% - 12px) center;
+  background-size: 16px;
+  -webkit-background-size: 16px;
+  -moz-background-size: 16px;
+  -ms-background-size: 16px;
+  -o-background-size: 16px;
+  background-color: rgba(242, 243, 245, 0.6);
+  min-width: 150px;
+  width: 100%;
+  display: block;
+}
+
+.ed-form__select-sort {
+  background-image: url("../public/assets/icons/icon-sort.svg");
+  background-repeat: no-repeat;
+  background-position: 95%;
+  background-size: 13px;
+  -webkit-background-size: 13px;
+  -moz-background-size: 13px;
+  -ms-background-size: 13px;
+  -o-background-size: 13px;
+  background-color: rgba(242, 243, 245, 0.8);
+}
+
+.dark .ed-form__select-sort {
+  background-image: url("../public/assets/icons/icon-sort-light.svg");
+  background-repeat: no-repeat;
+  background-position: 95%;
+  background-size: 13px;
+  -webkit-background-size: 13px;
+  -moz-background-size: 13px;
+  -ms-background-size: 13px;
+  -o-background-size: 13px;
+  background-color: rgba(242, 243, 245, 0.8);
+}
+
+/* Date Field Width on Safari */
+input[type="date"] {
+  display: block !important;
+  -webkit-appearance: textfield !important;
+  -moz-appearance: textfield !important;
+  -ms-appearance: textfield !important;
+  -o-appearance: textfield !important;
+}
+
+/* Remove Cancel Button from the input field */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+.ed-global__search::-webkit-search-decoration,
+.ed-global__search::-webkit-search-cancel-button,
+.ed-global__search::-webkit-search-results-button,
+.ed-global__search::-webkit-search-results-decoration {
+  display: block !important;
+  opacity: 1 !important;
+  /* appearance: none !important; */
+  width: 15px !important;
+  height: 15px !important;
+  font-size: 18px !important;
+  /* background: url('../public/assets/icons/icon-cancel.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: contain !important;
+  -webkit-background-size: contain !important;
+  -moz-background-size: contain !important;
+  -ms-background-size: contain !important;
+  -o-background-size: contain !important; */
+  cursor: pointer;
+}
+
+/* Remove Number Input Appearance Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  -ms-appearance: none !important;
+  -o-appearance: none !important;
+  margin: 0;
+}
+
+/* Remove Number Input Appearance Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Hide the plugin Watermark */
+.tox .tox-statusbar,
+.tox .tox-notification {
+  display: none !important;
+}
+
+/* Date Picker Override */
+.react-datepicker-popper {
+  z-index: 80 !important;
+}
+
+/* Image Viewer CSS */
+.pan-container div img {
+  height: 90vh;
+  object-fit: contain;
+}
+
+/* Dark Theme Skeleton CSS */
+.dark .react-loading-skeleton {
+  background-color: #252525 !important;
+}
+
+.dark .react-loading-skeleton::after {
+  background-image: none !important;
+  background-color: #262626 !important;
+}
+
+/* Safari Browser Overrides */
+.ed-global__search::-webkit-search-decoration,
+.ed-global__search::-webkit-search-cancel-button,
+.ed-global__search::-webkit-search-results-button,
+.ed-global__search::-webkit-search-results-decoration {
+  filter: opacity(50%) brightness(5%);
+  -webkit-filter: opacity(50%) brightness(5%);
+  -moz-filter: opacity(50%) brightness(5%);
+  -ms-filter: opacity(50%) brightness(5%);
+  -o-filter: opacity(50%) brightness(5%);
+}
+
+.dark .ed-global__search::-webkit-search-decoration,
+.dark .ed-global__search::-webkit-search-cancel-button,
+.dark .ed-global__search::-webkit-search-results-button,
+.dark .ed-global__search::-webkit-search-results-decoration {
+  filter: opacity(100%) grayscale(100%);
+  -webkit-filter: opacity(100%) grayscale(100%);
+  -moz-filter: opacity(100%) grayscale(100%);
+  -ms-filter: opacity(100%) grayscale(100%);
+  -o-filter: opacity(100%) grayscale(100%);
+}
+
+.dark input[type="date"]::-webkit-inner-spin-button,
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) !important;
+  -webkit-filter: invert(1) !important;
+  -moz-filter: invert(1) !important;
+  -ms-filter: invert(1) !important;
+  -o-filter: invert(1) !important;
+}
+
+/* .ed-form__input-password,
+.dark .ed-form__input-password {
+  -webkit-text-security: disc !important;
+  -moz-text-security: disc !important;
+  -moz-webkit-text-security: disc !important
+} */
+
+/* Custom Tooltip on Sidebar */
+[data-title] {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+[data-title]:hover:after {
+  opacity: 1;
+  transition: all 0.25s linear 0.5s;
+  -webkit-transition: all 0.25s linear 0.5s;
+  -moz-transition: all 0.25s linear 0.5s;
+  -ms-transition: all 0.25s linear 0.5s;
+  -o-transition: all 0.25s linear 0.5s;
+  visibility: visible;
+}
+
+[data-title]:after {
+  content: attr(data-title);
+  background-color: #f2f3f5;
+  color: #262626;
+  font-size: 75%;
+  font-weight: 500;
+  position: absolute;
+  padding: 3px 8px;
+  bottom: -15px;
+  white-space: nowrap;
+  box-shadow: 1px 1px 3px #222222;
+  opacity: 0;
+  border: 1px solid #111111;
+  border-radius: 6px;
+  z-index: 99999;
+  visibility: hidden;
+}
+
+/* Browser Auto focus and auto fill form data */
+input::-webkit-autofill,
+input::-webkit-autofill:hover,
+input::-webkit-autofill:focus,
+input::-webkit-autofill:active {
+  /* -webkit-box-shadow: 0 0 0 30px #f7f6f7 inset !important; */
+  -webkit-text-fill-color: #1f1b24 !important;
+}
+
+.dark input::-webkit-autofill,
+.dark input::-webkit-autofill:hover,
+.dark input::-webkit-autofill:focus,
+.dark input::-webkit-autofill:active {
+  /* -webkit-box-shadow: 0 0 0 30px #262626 inset !important; */
+  -webkit-text-fill-color: #d8dfed !important;
+}
+
+/* Dashboard Chart CSS Override */
+.ed-dashboard__users-chart canvas {
+  width: 220px !important;
+  height: 220px !important;
+}
+
+.pdf-preview.react-pdf__Document {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.react-pdf__Document:hover .page-controls {
+  opacity: 1;
+}
+
+.react-pdf__Document .page-controls span {
+  font: inherit;
+  font-size: 0.8em;
+  padding: 0 0.5em;
+}
+
+.react-pdf__Document .page-controls button {
+  width: 44px;
+  height: 44px;
+  background: white;
+  border: 0;
+  font: inherit;
+  font-size: 0.8em;
+  border-radius: 4px;
+}
+
+.react-pdf__Document .page-controls button:enabled:hover {
+  cursor: pointer;
+}
+
+.react-pdf__Document .page-controls button:enabled:hover,
+.react-pdf__Document .page-controls button:enabled:focus {
+  background-color: #e6e6e6;
+}
+
+.react-pdf__Document .page-controls button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.react-pdf__Document .page-controls button:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.pdf-preview .page-controls {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  background: white;
+  opacity: 0;
+  transform: translate(-50%);
+  transition: opacity ease-in-out 0.2s;
+  box-shadow: 0 30px 40px 0 rgba(16, 36, 94, 0.2);
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.pdf-preview .react-pdf__Page {
+  max-width: calc(100% - 2em);
+}
+
+.pdf-preview .react-pdf__Page__textContent,
+.pdf-preview .react-pdf__Page__annotations {
+  display: none;
+}
+
+.pdf-preview .react-pdf__Page canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+.query.pdf-preview .react-pdf__Page canvas {
+  max-width: 100%;
+  height: 90vh !important;
+}
+
+.edlore-ai {
+  background: linear-gradient(
+    90.04deg,
+    #ff7a00 0.04%,
+    #7a5af8 3.57%,
+    #f04438 9.3%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hover\:text-secondary:hover {
+  color: rgb(125 198 104 / var(--tw-text-opacity)) !important;
+}
+
+.unity-container {
+  position: relative;
+  width: 100%;
+}
+
+.unity-container > .loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.unity-container > .unity {
+  width: 100%;
+  height: 90vh;
+}
+
+.react-thumbnail-generator {
+  width: 100px;
+  height: 100px;
+}
+
+.react-thumbnail-generator img {
+  height: 100%;
+  width: 100%;
+}
+
+@media (min-width: 1280px) {
+  .react-thumbnail-generator {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+.unity-model {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  color: black;
+  min-width: 15rem;
+}
+
+.unity-bg-green-500 {
+  background-color: #10d10c;
+}
