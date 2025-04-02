@@ -16,6 +16,7 @@ async function getApi(data) {
     nsn_number: data.nsn_number,
     quantity: data.quantity,
     dynamic_fields: data.dynamic_fields,
+    part_fields: data.part_fields,
   };
 
   try {

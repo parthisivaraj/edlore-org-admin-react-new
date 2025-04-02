@@ -53,6 +53,7 @@ import { AIAssistanceDatabases } from "../containers/ai-assistances/databases";
 import { AIQuery } from "../containers/ai-assistances/query";
 import RealiseNote from "../containers/realise-note/realiseNote";
 import SlaveMachine from "../containers/slave-machine/slaveMachine";
+import PartFields from "../containers/part-fields/partFields";
 
 const AppRoutes = () => {
   return (
@@ -227,6 +228,12 @@ const AppRoutes = () => {
           exact={true}
         />
 
+        {/* PartFields */}
+        <PrivateRoute
+          component={PartFields}
+          path="/part-fields"
+          exact={true}
+        />
         
         {/* Realise Note */}
         <PrivateRoute

@@ -329,6 +329,35 @@ const Sidebar = (props) => {
               </NavLink>
             </li>
 
+            {/* Part Fields */}
+            <li data-title="Part Fields">
+              <NavLink
+                to="/part-fields"
+                exact={true}
+                onClick={() => collapseOthers(null)}
+                className={({ activeClassName }) =>
+                  activeClassName
+                    ? "active text-opacity-100"
+                    : "flex items-center w-full text-sm text-white text-opacity-50 p-3 transition-all hover:text-opacity-100 hover:transition-all"
+                }
+              >
+                <img
+                  src="/assets/icons/icon-package.svg"
+                  alt="icon-part-fields"
+                  className={`w-[20px] h-[20px] opacity-50 ${({
+                    activeClassName,
+                  }) => (activeClassName ? "opacity-100" : "")}`}
+                />
+                <span
+                  className={`ed-sidebar__link ml-3 whitespace-nowrap ${
+                    showSidebar ? "hidden" : ""
+                  }`}
+                >
+                  Part Fields
+                </span>
+              </NavLink>
+            </li>
+
             {/* Settings */}
             {/* <li data-title="Settings">
               <NavLink

@@ -210,6 +210,12 @@ import deleteSlaveMachinesSaga from "../reduxes/slaveMachine/deleteSlaveMachineS
 import updateSlaveMachineSaga from "../reduxes/slaveMachine/updateSlaveMachineSaga";
 import deleteUserSaga from "../reduxes/users/deleteUsersSaga";
 
+import allPartFieldsSaga from "../reduxes/partFields/gelAllPartFieldsSaga";
+import addPartFieldsSaga from "../reduxes/partFields/addPartFieldsSaga";
+import deletePartFieldsSaga from "../reduxes/partFields/deletePartFieldsSaga";
+import updatePartFieldsSaga from "../reduxes/partFields/updatePartFieldsSaga";
+
+
 export default function* rootSaga() {
   yield all([
     userSaga(),
@@ -441,5 +447,10 @@ export default function* rootSaga() {
     updateSlaveMachineSaga(),
     //realiseNote
     addRealiseNoteSaga(),
+    //PartFields
+    allPartFieldsSaga(),
+    addPartFieldsSaga(),
+    deletePartFieldsSaga(),
+    updatePartFieldsSaga(),
   ]);
 }
