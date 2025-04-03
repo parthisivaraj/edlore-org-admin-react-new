@@ -3,9 +3,8 @@ import { nodeInstance } from "../../../api/api_instance";
 
 async function getApi(data) {
   try {
-    let partId = (data.partId && data.partId!=null)?data.partId:'new';
     const result = nodeInstance({
-      url: `model/${data.model_id}/anaglyph/${data.anaglyph_id}/parts/${partId}`,
+      url: `model/${data.model_id}/anaglyph/${data.anaglyph_id}/parts/${data.partId}`,
       method: "GET",
       data: data,
     }).then((response) => {

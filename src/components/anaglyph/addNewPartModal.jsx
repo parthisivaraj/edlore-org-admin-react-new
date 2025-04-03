@@ -8,6 +8,7 @@ import {
 } from "../../redux/reduxes/anaglyph/anaglyphAction";
 import LinkMedia from "../common/linkMediaNew";
 import { RTEEditor } from "../common/editor";
+import { nodeInstance } from "../../api/api_instance";
 
 const AddNewPartModal = ({
   showPartsModal,
@@ -29,6 +30,36 @@ const AddNewPartModal = ({
   );
 
   // States
+  // ----- Part Fields -----
+  const [partFields, setPartFields] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchPartFields = async () => {
+      try {
+          const response = await nodeInstance({
+            url: `part_fields`,
+            method: "GET",
+          });
+         setPartFields(response.data.data);
+      } catch (err) {
+        setPartFields([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPartFields();
+  }, []);
+
+  // Handle input change Part field
+  const handleChangePartField =  (id, newValue) => {
+    setPartFields(
+      partFields.map((field) =>
+        field.id === id ? { ...field, 'value': newValue } : field
+      )
+    );
+  };
+  // ----- Part Fields -----
+
   // ----- Dynamic Fields -----
   // const [dynamicFields, setDynamicFields] = useState([{id: 1, name:"", value: ""}]);
   const [dynamicFields, setDynamicFields] = useState([]);
@@ -217,6 +248,7 @@ const AddNewPartModal = ({
         quantity: state.quantity,
 
         dynamic_fields: dynamicFields,
+        part_fields: partFields,
       };
       if (update) { 
         dispatch(updatePart(data));
@@ -372,12 +404,33 @@ const AddNewPartModal = ({
                       </div>
                     </div>
                   </div>
+
+                  {/* ----- Part Fields ----- */}
+                  <div className="grid grid-cols-2 gap-8">
+                    {partFields && partFields.map((field) => (
+                        <div class="gap-4">                 
+                          <label htmlFor={`part_field_${field.id}`} className="text-sm font-medium dark:text-gray2">
+                            {field.name}
+                          </label>
+                          <input
+                            type="text"
+                            id={`part_field_${field.id}`}
+                            value={field.value}
+                            className="bg-white dark:bg-darkBg w-full text-sm border border-gray2 dark:border-opacity-50 rounded-lg py-3 px-4 mt-1 focus:border-secondary focus:outline-none"
+                            onChange={(e) => handleChangePartField(field.id, e.target.value)}
+                            placeholder={field.name}
+                          />
+                        </div>
+                    ))}
+                  </div>
+                  {/* ----- Part Fields ----- */}
+
                   {/* ----- Dynamic Fields ----- */}
                    
                     <button 
                       onClick={() => addDynamicField()}
                       type='button' 
-                      className='mb-3 text-sm font-medium text-primary opacity-75 transition-all duration-300 hover:opacity-100 hover:transition-all hover:duration-300 focus:outline-0 focus-visible:outline-0'>
+                      className='mt-3 mb-3 text-sm font-medium text-primary opacity-75 transition-all duration-300 hover:opacity-100 hover:transition-all hover:duration-300 focus:outline-0 focus-visible:outline-0'>
                         Add Field +
                     </button>
 
@@ -426,7 +479,7 @@ const AddNewPartModal = ({
                     ))}
                   {/* ----- Dynamic Fields ----- */}
 
-                  <div className="grid grid-cols-2 gap-8">
+                  {/* <div className="grid grid-cols-2 gap-8">
                     <div className="col-start-1 mb-3">
                       <label
                         htmlFor="manufacturer_code"
@@ -462,9 +515,9 @@ const AddNewPartModal = ({
                         onChange={(e) => onChangeHandler(e)}
                       />
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="grid grid-cols-2 gap-8">
+                  {/* <div className="grid grid-cols-2 gap-8">
                     <div className="col-start-1 mb-3">
                       <label
                         htmlFor="nsn_number"
@@ -500,7 +553,7 @@ const AddNewPartModal = ({
                         onChange={(e) => onChangeHandler(e)}
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="col-start-1 mb-3">
                     <RTEEditor
