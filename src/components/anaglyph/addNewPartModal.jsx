@@ -34,21 +34,41 @@ const AddNewPartModal = ({
   const [partFields, setPartFields] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const fetchPartFields = async () => {
-      try {
-          const response = await nodeInstance({
-            url: `part_fields`,
-            method: "GET",
-          });
-         setPartFields(response.data.data);
-      } catch (err) {
-        setPartFields([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPartFields();
-  }, []);
+  const fetchPartFields = async () => {
+    try {
+      const response = await nodeInstance({
+        url: `part_fields`,
+        method: "GET",
+      });
+
+      const allFields = response.data.data; // [{id, name}, ...]
+
+      // Parse saved values (if any)
+      const filledFields = details?.part_fields ? JSON.parse(details.part_fields) : [];
+
+      // Build value map
+      const valueMap = filledFields.reduce((acc, field) => {
+        acc[field.id] = field.value;
+        return acc;
+      }, {});
+
+      // Merge values with full field list
+      const merged = allFields.map(field => ({
+        ...field,
+        value: valueMap[field.id] || ''
+      }));
+
+      setPartFields(merged);
+    } catch (err) {
+      console.error(err);
+      setPartFields([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchPartFields();
+}, [details]);
 
   // Handle input change Part field
   const handleChangePartField =  (id, newValue) => {
@@ -142,6 +162,11 @@ const AddNewPartModal = ({
           existingFilesIdsUnchanged: stepFiles,
         }));
         setDynamicFields((details && details.dynamic_fields && details.dynamic_fields.length!=0 && JSON.parse(details.dynamic_fields).length!=0)?JSON.parse(details.dynamic_fields):[]);
+        setPartFields(
+          (details && details.part_fields && details.part_fields.length != 0 && JSON.parse(details.part_fields).length != 0)
+            ? JSON.parse(details.part_fields)
+            : []
+        );
     }
   }, [details]);
 
