@@ -35,6 +35,8 @@ import sync from "../reduxes/sync/syncReducer";
 import realise_note from "../reduxes/realiseNote/realiseNoteReducer";
 import slave_machine from "../reduxes/slaveMachine/slaveMachineReducer";
 
+import part_fields from "../reduxes/partFields/partFieldsReducer";
+
 const persistConfig = {
   key: "root",
   storage: storage,
@@ -74,6 +76,7 @@ const rootReducer = combineReducers({
   sync: sync,
   realise_note: realise_note,
   slave_machine: slave_machine,
+  part_fields: part_fields,
 });
 
 export default persistReducer(persistConfig, rootReducer);

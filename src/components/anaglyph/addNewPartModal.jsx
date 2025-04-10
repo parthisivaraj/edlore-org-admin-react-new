@@ -8,6 +8,7 @@ import {
 } from "../../redux/reduxes/anaglyph/anaglyphAction";
 import LinkMedia from "../common/linkMediaNew";
 import { RTEEditor } from "../common/editor";
+import { nodeInstance } from "../../api/api_instance";
 
 const AddNewPartModal = ({
   showPartsModal,
@@ -29,6 +30,79 @@ const AddNewPartModal = ({
   );
 
   // States
+  // ----- Part Fields -----
+  const [partFields, setPartFields] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+  const fetchPartFields = async () => {
+    try {
+      const response = await nodeInstance({
+        url: `part_fields`,
+        method: "GET",
+      });
+
+      const allFields = response.data.data; // [{id, name}, ...]
+
+      // Parse saved values (if any)
+      const filledFields = details?.part_fields ? JSON.parse(details.part_fields) : [];
+
+      // Build value map
+      const valueMap = filledFields.reduce((acc, field) => {
+        acc[field.id] = field.value;
+        return acc;
+      }, {});
+
+      // Merge values with full field list
+      const merged = allFields.map(field => ({
+        ...field,
+        value: valueMap[field.id] || ''
+      }));
+
+      setPartFields(merged);
+    } catch (err) {
+      console.error(err);
+      setPartFields([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchPartFields();
+}, [details]);
+
+  // Handle input change Part field
+  const handleChangePartField =  (id, newValue) => {
+    setPartFields(
+      partFields.map((field) =>
+        field.id === id ? { ...field, 'value': newValue } : field
+      )
+    );
+  };
+  // ----- Part Fields -----
+
+  // ----- Dynamic Fields -----
+  // const [dynamicFields, setDynamicFields] = useState([{id: 1, name:"", value: ""}]);
+  const [dynamicFields, setDynamicFields] = useState([]);
+  // Add new Dynamic field
+  const addDynamicField = () => {
+    setDynamicFields([...dynamicFields, { id: dynamicFields.length + 1, name:"", value: "" }]);
+  };
+
+  // Remove a Dynamic field
+  const removeDynamicField = (id) => {
+    setDynamicFields(dynamicFields.filter((field) => field.id !== id));
+  };
+
+  // Handle input change Dynamic field
+  const handleChangeDynamicField =  (id, key, newValue) => {
+    setDynamicFields(
+      dynamicFields.map((field) =>
+        field.id === id ? { ...field, [key]: newValue } : field
+      )
+    );
+  };
+  // ----- Dynamic Fields -----
+
   const [state, setState] = useState({
     part_name: "",
     purchase_url: "",
@@ -87,6 +161,12 @@ const AddNewPartModal = ({
           selectedFilesIds: stepFiles,
           existingFilesIdsUnchanged: stepFiles,
         }));
+        setDynamicFields((details && details.dynamic_fields && details.dynamic_fields.length!=0 && JSON.parse(details.dynamic_fields).length!=0)?JSON.parse(details.dynamic_fields):[]);
+        setPartFields(
+          (details && details.part_fields && details.part_fields.length != 0 && JSON.parse(details.part_fields).length != 0)
+            ? JSON.parse(details.part_fields)
+            : []
+        );
     }
   }, [details]);
 
@@ -187,12 +267,15 @@ const AddNewPartModal = ({
         attached_medias_attributes: media_attributes,
         page: paginate.current_page,
 
-        manufacturer_code: state.manufacturer_code.replace(/\s+/g, " ").trim(),
-        nomenclature: state.nomenclature.replace(/\s+/g, " ").trim(),
-        nsn_number: state.nsn_number.replace(/\s+/g, " ").trim(),
+        manufacturer_code: (state.manufacturer_code) ? state.manufacturer_code.replace(/\s+/g, " ").trim() : "",
+        nomenclature: (state.nomenclature) ? state.nomenclature.replace(/\s+/g, " ").trim() : "",
+        nsn_number: (state.nsn_number) ? state.nsn_number.replace(/\s+/g, " ").trim() : "",
         quantity: state.quantity,
+
+        dynamic_fields: dynamicFields,
+        part_fields: partFields,
       };
-      if (update) {
+      if (update) { 
         dispatch(updatePart(data));
       } else {
         dispatch(addPart(data));
@@ -324,13 +407,14 @@ const AddNewPartModal = ({
                       <label
                         htmlFor="layer_id"
                         className="text-sm font-medium dark:text-gray2"
+                        style={{ display: "flex" }}
                       >
                         Layer ID <span className="text-danger">*</span>
+                        <span className="block text-danger text-sm">
+                         &nbsp; Caution: Changing the "Layer ID" will break the 3D mapping.
+                        </span>
                       </label>
-                      <span className="block text-danger text-sm">
-                        Caution: Changing the "Layer ID" will break the 3D
-                        mapping.
-                      </span>
+                     
                       <input
                         type="text"
                         id="layer_id"
@@ -346,7 +430,81 @@ const AddNewPartModal = ({
                     </div>
                   </div>
 
+                  {/* ----- Part Fields ----- */}
                   <div className="grid grid-cols-2 gap-8">
+                    {partFields && partFields.map((field) => (
+                        <div class="gap-4">                 
+                          <label htmlFor={`part_field_${field.id}`} className="text-sm font-medium dark:text-gray2">
+                            {field.name}
+                          </label>
+                          <input
+                            type="text"
+                            id={`part_field_${field.id}`}
+                            value={field.value}
+                            className="bg-white dark:bg-darkBg w-full text-sm border border-gray2 dark:border-opacity-50 rounded-lg py-3 px-4 mt-1 focus:border-secondary focus:outline-none"
+                            onChange={(e) => handleChangePartField(field.id, e.target.value)}
+                            placeholder={field.name}
+                          />
+                        </div>
+                    ))}
+                  </div>
+                  {/* ----- Part Fields ----- */}
+
+                  {/* ----- Dynamic Fields ----- */}
+                   
+                    <button 
+                      onClick={() => addDynamicField()}
+                      type='button' 
+                      className='mt-3 mb-3 text-sm font-medium text-primary opacity-75 transition-all duration-300 hover:opacity-100 hover:transition-all hover:duration-300 focus:outline-0 focus-visible:outline-0'>
+                        Add Field +
+                    </button>
+
+
+                    {dynamicFields.map((field) => (
+                      <div key={field.id} style={{ display: "flex", marginBottom: "10px" }} className="grid grid-cols-3 gap-8">
+                        <div className="col-start-1 mb-3">                 
+                          <label htmlFor={`field_name ${field.id}`} className="text-sm font-medium dark:text-gray2">
+                            {`Field Name ${field.id}`}
+                          </label>
+                          <input
+                            type="text"
+                            id={`field_name ${field.id}`}
+                            value={field.name}
+                            className="bg-white dark:bg-darkBg w-full text-sm border border-gray2 dark:border-opacity-50 rounded-lg py-3 px-4 mt-1 focus:border-secondary focus:outline-none"
+                            onChange={(e) => handleChangeDynamicField(field.id, "name", e.target.value)}
+                            placeholder={`Field Name ${field.id}`}
+                          />
+                        </div>
+                        <div className="col-start-2 mb-3"> 
+                          <label htmlFor={`field_value ${field.id}`} className="text-sm font-medium dark:text-gray2">
+                            {`Field Value ${field.id}`}
+                          </label>
+                          <input
+                            type="text"
+                            id={`field_value ${field.id}`}
+                            value={field.value}
+                            className="bg-white dark:bg-darkBg w-full text-sm border border-gray2 dark:border-opacity-50 rounded-lg py-3 px-4 mt-1 focus:border-secondary focus:outline-none"
+                            onChange={(e) => handleChangeDynamicField(field.id, "value", e.target.value)}
+                            placeholder={`Field Value ${field.id}`}
+                          />
+                        </div>
+
+                        <button
+                          type="button"
+                          onClick={() => removeDynamicField(field.id)}
+                          className="col-start-3 ml-5 opacity-75 transition-all duration-300 hover:transition-all hover:duration-300 hover:opacity-100 focus:outline-0 focus-visible:outline-0"
+                          title="Delete">
+                          <img
+                            src="/assets/icons/icon-delete.svg"
+                            alt="icon-delete"
+                            className="dark:invert"
+                          />
+                        </button>
+                      </div>
+                    ))}
+                  {/* ----- Dynamic Fields ----- */}
+
+                  {/* <div className="grid grid-cols-2 gap-8">
                     <div className="col-start-1 mb-3">
                       <label
                         htmlFor="manufacturer_code"
@@ -382,9 +540,9 @@ const AddNewPartModal = ({
                         onChange={(e) => onChangeHandler(e)}
                       />
                     </div>
-                  </div>
+                  </div> */}
 
-                  <div className="grid grid-cols-2 gap-8">
+                  {/* <div className="grid grid-cols-2 gap-8">
                     <div className="col-start-1 mb-3">
                       <label
                         htmlFor="nsn_number"
@@ -420,7 +578,7 @@ const AddNewPartModal = ({
                         onChange={(e) => onChangeHandler(e)}
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="col-start-1 mb-3">
                     <RTEEditor
