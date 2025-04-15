@@ -44,7 +44,7 @@ const AddNewPartModal = ({
       const allFields = response.data.data; // [{id, name}, ...]
 
       // Parse saved values (if any)
-      const filledFields = details?.part_fields ? JSON.parse(details.part_fields) : [];
+      const filledFields = details?.part_fields ? details.part_fields : [];
 
       // Build value map
       const valueMap = filledFields.reduce((acc, field) => {
@@ -163,8 +163,8 @@ const AddNewPartModal = ({
         }));
         setDynamicFields((details && details.dynamic_fields && details.dynamic_fields.length!=0 && JSON.parse(details.dynamic_fields).length!=0)?JSON.parse(details.dynamic_fields):[]);
         setPartFields(
-          (details && details.part_fields && details.part_fields.length != 0 && JSON.parse(details.part_fields).length != 0)
-            ? JSON.parse(details.part_fields)
+          (details && details.part_fields && details.part_fields.length != 0)
+            ? details.part_fields
             : []
         );
     }
