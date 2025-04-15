@@ -5,7 +5,10 @@ import {
   UPDATE_DATABASE_SUCCESS,
 } from "./types";
 import { SET_TOASTER_SUCCESS } from "../toaster/types";
-import { marqoUploadFilesInstance } from "../../../api/marqo_api_instance";
+import {
+  marqoInstance,
+  uploadFilesInstance,
+} from "../../../api/marqo_api_instance";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
 import "pdfjs-dist/legacy/build/pdf.worker";
 import { nodeInstance } from "../../../api/api_instance";
@@ -58,14 +61,14 @@ async function uploadDocuments(data) {
         },
       });
 
-      await marqoUploadFilesInstance(
+      await uploadFilesInstance(
         awsResponse.data.signedUrl,
         data.file,
         data.file.type,
       );
       fileURL = awsResponse.data.keyOrUrl;
     }
-    await nodeInstance({
+    await marqoInstance({
       url: `database/${data.id}`,
       method: "PUT",
       data: {

@@ -4,7 +4,7 @@ import instance from "../../../api/api_instance";
 async function getApi(data) {
   try {
     const result = instance({
-      url: `forgot_password_reset`,
+      url: `/auth/reset_forgot_password`,
       method: "POST",
       data: data,
     }).then((response) => {

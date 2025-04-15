@@ -34,7 +34,6 @@ import databases from "../reduxes/databases/databaseReducer";
 import sync from "../reduxes/sync/syncReducer";
 import realise_note from "../reduxes/realiseNote/realiseNoteReducer";
 import slave_machine from "../reduxes/slaveMachine/slaveMachineReducer";
-
 import part_fields from "../reduxes/partFields/partFieldsReducer";
 
 const persistConfig = {

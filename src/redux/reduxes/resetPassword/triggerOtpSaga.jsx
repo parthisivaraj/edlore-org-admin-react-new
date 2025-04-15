@@ -4,7 +4,7 @@ import { nodeInstance } from "../../../api/api_instance";
 async function getApi(data) {
   try {
     const result = nodeInstance({
-      url: `get_opt?email=${encodeURIComponent(data.email)}`,
+      url: `/auth/get_opt?email=${encodeURIComponent(data.email)}`,
       method: "GET",
     }).then((response) => {
       return response;

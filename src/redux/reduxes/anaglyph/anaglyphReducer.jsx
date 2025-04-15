@@ -506,9 +506,9 @@ export default function anaglyph(state = initialState, action) {
       return {
         ...state,
         getUploadingCsvLoading: false,
-        uploadingCsvsStatus: action.data,
+        uploadingCsvsStatus: { completed: true, completion_status: 100 },
         csvUploadAvailable: true,
-        showCsvUploadButton: action.data.completed,
+        showCsvUploadButton: true,
       };
     case type.GET_UPLOADING_CSV_PARTS_FAILED:
       return {

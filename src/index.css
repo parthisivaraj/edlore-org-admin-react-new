@@ -518,10 +518,11 @@ input::-webkit-autofill:active {
   align-items: center;
 }
 
-.unity-container > .unity {
-  width: 100%;
-  height: 90vh;
-}
+/* .unity-container > .unity {
+  height: 80vh;
+  aspect-ratio: 16 / 9; 
+  max-width: 100vw; 
+} */
 
 .react-thumbnail-generator {
   width: 100px;

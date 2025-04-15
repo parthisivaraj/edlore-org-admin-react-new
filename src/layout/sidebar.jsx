@@ -64,9 +64,7 @@ const Sidebar = (props) => {
   const manipulatedMenus = useMemo(() => {
     return menus.filter(
       (x) =>
-        (EnvironmentConstant.mode === "offline" &&
-          EnvironmentConstant.machine === "SERVER") ||
-        x.title !== "AI Assistance",
+        EnvironmentConstant.machine === "SERVER" || x.title !== "AI Assistance",
     );
   }, []);
 

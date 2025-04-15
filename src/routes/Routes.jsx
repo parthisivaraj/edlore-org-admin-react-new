@@ -228,12 +228,6 @@ const AppRoutes = () => {
           exact={true}
         />
 
-        {/* PartFields */}
-        <PrivateRoute
-          component={PartFields}
-          path="/part-fields"
-          exact={true}
-        />
         
         {/* Realise Note */}
         <PrivateRoute
@@ -246,6 +240,13 @@ const AppRoutes = () => {
         <PrivateRoute
           component={PersonalNotes}
           path="/personal-notes"
+          exact={true}
+        />
+
+        {/* PartFields */}
+        <PrivateRoute
+          component={PartFields}
+          path="/part-fields"
           exact={true}
         />
 

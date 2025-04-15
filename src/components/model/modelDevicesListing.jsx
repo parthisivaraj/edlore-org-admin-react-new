@@ -738,7 +738,6 @@ const ModelDeviceListing = ({ model_id, setShowModal }) => {
               deleteLoading={deleteDeviceLoading}
             />
           )}
-          {console.log(deletingDevice)}
         </>
       )}
     </>

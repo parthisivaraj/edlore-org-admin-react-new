@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { APIPath } from "../../helpers";
+import { APIPath, EnvironmentConstant } from "../../helpers";
+import { nodeInstance } from "../../api/api_instance";
+import { uploadFilesInstance } from "../../api/marqo_api_instance";
 
 const chunkSize = 1048576 * 8;
 let timer = null;
@@ -73,9 +75,19 @@ function FileUploader(props) {
   // Progress of Upload
   useEffect(() => {
     if (fileSize > 0) {
-      fileUpload(counter);
+      if (EnvironmentConstant.mode.toLowerCase() === "offline") {
+        fileUpload(counter);
+      }
     }
   }, [fileToBeUpload, progress]);
+
+  useEffect(() => {
+    if (fileSize > 0) {
+      if (EnvironmentConstant.mode.toLowerCase() === "online") {
+        uploadAWS();
+      }
+    }
+  }, [fileToBeUpload]);
 
   // Get File Info
   const getFileContext = (e) => {
@@ -117,8 +129,6 @@ function FileUploader(props) {
       headers: headers,
     });
   };
-
-  let timeout;
 
   // Upload Chunk
   const uploadChunk = async (chunk) => {
@@ -181,12 +191,9 @@ function FileUploader(props) {
     }
   };
 
-  // Upload Completion
-  const uploadCompleted = async (finalFileNames) => {
-    var formData = new FormData();
-    formData.append("file_names[]", fileNames);
-    // let fileNames = [];
+  const getMediaType = (media) => {
     let mediaType = "";
+
     switch (media.type.split("/").shift()) {
       case "image":
         mediaType = "image";
@@ -229,6 +236,15 @@ function FileUploader(props) {
         mediaType = "other";
         break;
     }
+    return mediaType;
+  };
+
+  // Upload Completion
+  const uploadCompleted = async (finalFileNames) => {
+    var formData = new FormData();
+    formData.append("file_names[]", fileNames);
+    // let fileNames = [];
+    const mediaType = getMediaType(media);
 
     await axios
       .post(`${APIPath}media/complete`, finalFileNames, {
@@ -276,6 +292,40 @@ function FileUploader(props) {
       setErrormessage(index, "remove");
     }
     setFileNewName(event.target.value);
+  };
+
+  const uploadAWS = async () => {
+    const awsResponse = await nodeInstance({
+      url: `aws/requestUploadUrl`,
+      method: "POST",
+      data: {
+        ext: `.${media.name.split(".").pop()}`,
+        contentType: media.type,
+        isPublic: true,
+      },
+    });
+    await uploadFilesInstance(awsResponse.data.signedUrl, media, media.type);
+
+    const mediaType = getMediaType(media);
+    try {
+      await nodeInstance({
+        url: `media/create_aws_media`,
+        method: "POST",
+        data: {
+          original_file_name: fileGuid,
+          media_type: encodeURIComponent(mediaType),
+          media_title: fileNewName == "" ? media.title : fileNewName,
+          mime_type: media.type,
+          byte_size: 1000,
+          key: awsResponse.data.keyOrUrl,
+        },
+      });
+      setProgress(100);
+      oneUpdated(index);
+    } catch {
+      setError("Failed");
+      oneUpdated(index);
+    }
   };
 
   return (

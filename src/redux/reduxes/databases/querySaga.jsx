@@ -1,11 +1,12 @@
 import { call, put, debounce } from "redux-saga/effects";
 import { AI_QUERY_FAILED, AI_QUERY_REQUESTED, AI_QUERY_SUCCESS } from "./types";
 import { nodeInstance } from "../../../api/api_instance";
+import { marqoInstance } from "../../../api/marqo_api_instance";
 
 async function getApi(data) {
   try {
     const url = `database/search/${data.database}?query=${data.query}`;
-    const result = await nodeInstance({
+    const result = await marqoInstance({
       url,
       method: "GET",
       data,

@@ -22,6 +22,7 @@ import PermissionsMessage from "../common/permissionsMessage";
 import ListDataNotFound from "../common/listDataNotFound";
 import AssetNotesListModal from "../assetNotes/assetNotesListModal";
 import { ServerPath } from "../../helpers";
+import { nodeInstance } from "../../api/api_instance";
 
 const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
   const dispatch = useDispatch();
@@ -76,22 +77,22 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
         sortByPartName != 0
           ? sortByPartName
           : sortByPartId != 0
-          ? sortByPartId
-          : sortByLayerId != 0
-          ? sortByLayerId
-          : sortByPartCreatedDate != 0
-          ? sortByPartCreatedDate
-          : 0,
+            ? sortByPartId
+            : sortByLayerId != 0
+              ? sortByLayerId
+              : sortByPartCreatedDate != 0
+                ? sortByPartCreatedDate
+                : 0,
       sorting:
         sortByPartName != 0
           ? "part_name"
           : sortByPartId != 0
-          ? "part_id"
-          : sortByLayerId != 0
-          ? "layer_id"
-          : sortByPartCreatedDate != 0
-          ? "created_at"
-          : "",
+            ? "part_id"
+            : sortByLayerId != 0
+              ? "layer_id"
+              : sortByPartCreatedDate != 0
+                ? "created_at"
+                : "",
     };
     delayLoading && dispatch(getAllParts(data));
   }, [sort]);
@@ -108,22 +109,22 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
         sortByPartName != 0
           ? sortByPartName
           : sortByPartId != 0
-          ? sortByPartId
-          : sortByLayerId != 0
-          ? sortByLayerId
-          : sortByPartCreatedDate != 0
-          ? sortByPartCreatedDate
-          : 0,
+            ? sortByPartId
+            : sortByLayerId != 0
+              ? sortByLayerId
+              : sortByPartCreatedDate != 0
+                ? sortByPartCreatedDate
+                : 0,
       sorting:
         sortByPartName != 0
           ? "part_name"
           : sortByPartId != 0
-          ? "part_id"
-          : sortByLayerId != 0
-          ? "layer_id"
-          : sortByPartCreatedDate != 0
-          ? "created_at"
-          : "",
+            ? "part_id"
+            : sortByLayerId != 0
+              ? "layer_id"
+              : sortByPartCreatedDate != 0
+                ? "created_at"
+                : "",
     };
     if (activeSubTab == "3d") {
       dispatch(getAllParts(data));
@@ -196,22 +197,22 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
         sortByPartName != 0
           ? sortByPartName
           : sortByPartId != 0
-          ? sortByPartId
-          : sortByLayerId != 0
-          ? sortByLayerId
-          : sortByPartCreatedDate != 0
-          ? sortByPartCreatedDate
-          : 0,
+            ? sortByPartId
+            : sortByLayerId != 0
+              ? sortByLayerId
+              : sortByPartCreatedDate != 0
+                ? sortByPartCreatedDate
+                : 0,
       sorting:
         sortByPartName != 0
           ? "part_name"
           : sortByPartId != 0
-          ? "part_id"
-          : sortByLayerId != 0
-          ? "layer_id"
-          : sortByPartCreatedDate != 0
-          ? "created_at"
-          : "",
+            ? "part_id"
+            : sortByLayerId != 0
+              ? "layer_id"
+              : sortByPartCreatedDate != 0
+                ? "created_at"
+                : "",
     };
     dispatch(getAllParts(data));
   }, [searchQuery]);
@@ -233,22 +234,22 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
         sortByPartName != 0
           ? sortByPartName
           : sortByPartId != 0
-          ? sortByPartId
-          : sortByLayerId != 0
-          ? sortByLayerId
-          : sortByPartCreatedDate != 0
-          ? sortByPartCreatedDate
-          : 0,
+            ? sortByPartId
+            : sortByLayerId != 0
+              ? sortByLayerId
+              : sortByPartCreatedDate != 0
+                ? sortByPartCreatedDate
+                : 0,
       sorting:
         sortByPartName != 0
           ? "part_name"
           : sortByPartId != 0
-          ? "part_id"
-          : sortByLayerId != 0
-          ? "layer_id"
-          : sortByPartCreatedDate != 0
-          ? "created_at"
-          : "",
+            ? "part_id"
+            : sortByLayerId != 0
+              ? "layer_id"
+              : sortByPartCreatedDate != 0
+                ? "created_at"
+                : "",
     };
     dispatch(getAllParts(data));
   };
@@ -307,22 +308,22 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
         sortByPartName != 0
           ? sortByPartName
           : sortByPartId != 0
-          ? sortByPartId
-          : sortByLayerId != 0
-          ? sortByLayerId
-          : sortByPartCreatedDate != 0
-          ? sortByPartCreatedDate
-          : 0,
+            ? sortByPartId
+            : sortByLayerId != 0
+              ? sortByLayerId
+              : sortByPartCreatedDate != 0
+                ? sortByPartCreatedDate
+                : 0,
       sorting:
         sortByPartName != 0
           ? "part_name"
           : sortByPartId != 0
-          ? "part_id"
-          : sortByLayerId != 0
-          ? "layer_id"
-          : sortByPartCreatedDate != 0
-          ? "created_at"
-          : "",
+            ? "part_id"
+            : sortByLayerId != 0
+              ? "layer_id"
+              : sortByPartCreatedDate != 0
+                ? "created_at"
+                : "",
     };
     const csvUploadMediaData = {
       model_id: model_id,
@@ -337,6 +338,41 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
     return doc.body.textContent || "";
   };
+
+  // const dynamicFieldNames = Array.from(
+  //   new Set(
+  //     parts?.flatMap((part) =>
+  //       part.part_fields || "[]").map((field) => field.name
+  //       //JSON.parse(part.part_fields || "[]").map((field) => field.name)
+  //     )
+  //   )
+  // );
+
+  // ----- Part Fields -----
+  const [dynamicFieldNames, setDynamicFieldNames] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+  const fetchPartFields = async () => {
+    try {
+      const response = await nodeInstance({
+        url: `part_fields`,
+        method: "GET",
+      });
+
+      const allFields = response.data.data; // [{id, name}, ...]
+      setDynamicFieldNames(allFields);
+    } catch (err) {
+      console.error(err);
+      setDynamicFieldNames([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchPartFields();
+}, []);
+
+  // ----- Part Fields -----
 
   return (
     <>
@@ -405,36 +441,36 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
             {(permissions.includes("all_part") ||
               permissions.includes("write_part") ||
               permissions.includes("Admin")) && (
-              <button
-                type="button"
-                onClick={() => addPartHandler()}
-                className="bg-primary text-white text-sm 2xl:text-base font-medium border border-primary rounded-full py-2 px-6 ml-5 shadow-sm transition-all duration-300 hover:bg-transparent hover:text-primary hover:transition-all hover:duration-300 focus:outline-0 focus-visible:outline-0"
-              >
-                Add Part +
-              </button>
-            )}
+                <button
+                  type="button"
+                  onClick={() => addPartHandler()}
+                  className="bg-primary text-white text-sm 2xl:text-base font-medium border border-primary rounded-full py-2 px-6 ml-5 shadow-sm transition-all duration-300 hover:bg-transparent hover:text-primary hover:transition-all hover:duration-300 focus:outline-0 focus-visible:outline-0"
+                >
+                  Add Part +
+                </button>
+              )}
 
             {(permissions.includes("all_part") ||
               (permissions.includes("delete_part") &&
                 permissions.includes("delete_all_parts")) ||
               permissions.includes("Admin")) && (
-              <>
-                {parts && parts.length > 1 && (
-                  <button
-                    type="button"
-                    onClick={() => confirmDeleteAllParts()}
-                    className="ml-5 opacity-75 transition-all duration-300 hover:transition-all hover:duration-300 hover:opacity-100 focus:outline-0 focus-visible:outline-0"
-                    title="Delete"
-                  >
-                    <img
-                      src="/assets/icons/icon-delete.svg"
-                      alt="icon-delete"
-                      className="dark:invert"
-                    />
-                  </button>
-                )}
-              </>
-            )}
+                <>
+                  {parts && parts.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => confirmDeleteAllParts()}
+                      className="ml-5 opacity-75 transition-all duration-300 hover:transition-all hover:duration-300 hover:opacity-100 focus:outline-0 focus-visible:outline-0"
+                      title="Delete"
+                    >
+                      <img
+                        src="/assets/icons/icon-delete.svg"
+                        alt="icon-delete"
+                        className="dark:invert"
+                      />
+                    </button>
+                  )}
+                </>
+              )}
           </div>
         </div>
 
@@ -445,10 +481,9 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
               <>
                 {parts && parts.length > 0 && (
                   <div className="flex items-center text-lg text-blue2 mt-3">
-                    {` CSV extraction is completed upto (${
-                      uploadingCsvsStatus &&
+                    {` CSV extraction is completed upto (${uploadingCsvsStatus &&
                       uploadingCsvsStatus.completion_status
-                    }%).`}
+                      }%).`}
                     <button
                       onClick={() => refreshPartListCSVUpload()}
                       type="button"
@@ -467,7 +502,7 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
             ) : (
               <>
                 {uploadingCsvsStatus &&
-                uploadingCsvsStatus.completion_status == null ? (
+                  uploadingCsvsStatus.completion_status == null ? (
                   <div className="flex items-center text-lg text-blue2 mt-3">
                     {` CSV extraction is in Progress`}
                     <button
@@ -485,10 +520,9 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
                   </div>
                 ) : (
                   <div className="flex items-center text-lg text-blue2 mt-3">
-                    {` CSV extraction is in Progress (${
-                      uploadingCsvsStatus &&
+                    {` CSV extraction is in Progress (${uploadingCsvsStatus &&
                       uploadingCsvsStatus.completion_status
-                    }%).`}
+                      }%).`}
                     <button
                       onClick={() => refreshPartListCSVUpload()}
                       type="button"
@@ -531,9 +565,9 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
           {/* Filters : Start */}
           {/* <Filters /> */}
         </div>
-
+        
         {/* Parts Table List */}
-        <div className="w-full h-[300px] dark:text-gray2 mt-2 overflow-scroll scrollbar-thin scrollbar-thumb-gray2 dark:scrollbar-thumb-darkMainBg scrollbar-track-gray4 dark:scrollbar-track-black1  scrollbar-thumb-rounded-3xl scrollbar-track-rounded-3xl">
+        <div className="w-full dark:text-gray2 mt-2 overflow-scroll scrollbar-thin scrollbar-thumb-gray2 dark:scrollbar-thumb-darkMainBg scrollbar-track-gray4 dark:scrollbar-track-black1  scrollbar-thumb-rounded-3xl scrollbar-track-rounded-3xl">
           {!(
             permissions.includes("all_part") ||
             permissions.includes("read_part") ||
@@ -678,27 +712,6 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
                       width="15%"
                       className="px-4 py-4 text-sm uppercase whitespace-nowrap"
                     >
-                      Manufacturer Code
-                    </th>
-                    <th
-                      scope="col"
-                      width="15%"
-                      className="px-4 py-4 text-sm uppercase whitespace-nowrap"
-                    >
-                      Nomenclature
-                    </th>
-                    <th
-                      scope="col"
-                      width="15%"
-                      className="px-4 py-4 text-sm uppercase whitespace-nowrap"
-                    >
-                      NSN Number
-                    </th>
-                    <th
-                      scope="col"
-                      width="15%"
-                      className="px-4 py-4 text-sm uppercase whitespace-nowrap"
-                    >
                       Part Description
                     </th>
                     <th
@@ -708,14 +721,16 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
                     >
                       Purchase URL
                     </th>
-                    <th
-                      scope="col"
-                      width="5%"
-                      className="px-4 py-4 text-sm uppercase whitespace-nowrap"
-                    >
-                      Quantity
-                    </th>
-
+                    {dynamicFieldNames.map((field) => (
+                        <th
+                          key={field.name}
+                          scope="col"
+                          width="15%"
+                          className="px-4 py-4 text-sm uppercase whitespace-nowrap"
+                        >
+                          {field.name}
+                        </th>
+                      ))}
                     <th
                       onClick={() =>
                         handleChangeSort(
@@ -731,7 +746,7 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
                         <span
                           className={
                             sortByPartCreatedDate == 1 ||
-                            sortByPartCreatedDate == 2
+                              sortByPartCreatedDate == 2
                               ? "text-primary"
                               : ""
                           }
@@ -797,13 +812,8 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
                               part_name,
                               part_id,
                               layer_id,
-                              // medias,
-                              manufacturer_code,
-                              nomenclature,
-                              nsn_number,
                               part_description,
                               purchase_url,
-                              quantity,
                               created_at,
                             } = part;
                             return (
@@ -826,15 +836,6 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
                                 <td width="15%" className="px-4 py-4 text-sm">
                                   {layer_id}
                                 </td>
-                                {/* <td width="15%" className="px-4 py-4 text-sm">
-                                  {" "}
-                                  {medias.length}
-                                </td> */}
-                                <td className="px-4 py-4">
-                                  {manufacturer_code}
-                                </td>
-                                <td className="px-4 py-4">{nomenclature}</td>
-                                <td className="px-4 py-4">{nsn_number}</td>
                                 <td className="px-4 py-4">
                                   {stripHtmlTags(part_description)}
                                 </td>
@@ -847,7 +848,18 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
                                     {purchase_url}
                                   </a>
                                 </td>
-                                <td className="px-4 py-4">{quantity}</td>
+                                {dynamicFieldNames.map((field, idx) => {
+
+                                    const fields = part.part_fields ? part.part_fields : [];
+
+                                    const find_field = fields.find((f) => f.id === field.id);
+                                    return (
+                                      <td key={idx} className="px-4 py-4 text-sm">
+                                        {find_field?.value || "-"}
+                                      </td>
+                                    );
+                                  })}
+                                
 
                                 <td
                                   width="15%"
@@ -863,56 +875,56 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
                                   {(permissions.includes("all_part") ||
                                     permissions.includes("delete_part") ||
                                     permissions.includes("Admin")) && (
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        confirmDeletePart(true, id, part_name)
-                                      }
-                                      className=" focus-visible:outline-none"
-                                      title="Delete"
-                                    >
-                                      <img
-                                        src="/assets/icons/icon-delete.svg"
-                                        alt="icon-delete"
-                                        className="w-4 h-4 dark:invert opacity-80 transition-all duration-300 hover:opacity-100 hover:duration-300 dark:opacity-60 dark:hover:opacity-100 dark:hover:transition-all"
-                                      />
-                                    </button>
-                                  )}
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          confirmDeletePart(true, id, part_name)
+                                        }
+                                        className=" focus-visible:outline-none"
+                                        title="Delete"
+                                      >
+                                        <img
+                                          src="/assets/icons/icon-delete.svg"
+                                          alt="icon-delete"
+                                          className="w-4 h-4 dark:invert opacity-80 transition-all duration-300 hover:opacity-100 hover:duration-300 dark:opacity-60 dark:hover:opacity-100 dark:hover:transition-all"
+                                        />
+                                      </button>
+                                    )}
 
                                   {(permissions.includes("all_part") ||
                                     permissions.includes("update_part") ||
                                     permissions.includes("Admin")) && (
-                                    <button
-                                      type="button"
-                                      onClick={() => updatePartHandler(id)}
-                                      className=" focus-visible:outline-none mx-4"
-                                      title="Edit"
-                                    >
-                                      <img
-                                        src="/assets/icons/icon-edit.svg"
-                                        alt="icon-edit"
-                                        className="w-4 h-4 dark:invert opacity-80 transition-all duration-300 hover:opacity-100 hover:duration-300 dark:opacity-60 dark:hover:opacity-100 dark:hover:transition-all"
-                                      />
-                                    </button>
-                                  )}
+                                      <button
+                                        type="button"
+                                        onClick={() => updatePartHandler(id)}
+                                        className=" focus-visible:outline-none mx-4"
+                                        title="Edit"
+                                      >
+                                        <img
+                                          src="/assets/icons/icon-edit.svg"
+                                          alt="icon-edit"
+                                          className="w-4 h-4 dark:invert opacity-80 transition-all duration-300 hover:opacity-100 hover:duration-300 dark:opacity-60 dark:hover:opacity-100 dark:hover:transition-all"
+                                        />
+                                      </button>
+                                    )}
                                   {(permissions.includes("all_part_notes") ||
                                     permissions.includes("update_part_notes") ||
                                     permissions.includes("Admin")) && (
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        assetNotesListEvent(true, id)
-                                      }
-                                      className=" focus-visible:outline-none"
-                                      title="Notes"
-                                    >
-                                      <img
-                                        src="/assets/icons/icon-note.svg"
-                                        alt="icon-note"
-                                        className="w-4.5 h-4.5 dark:invert opacity-80 transition-all duration-300 hover:opacity-100 hover:duration-300 dark:opacity-60 dark:hover:opacity-100 dark:hover:transition-all"
-                                      />
-                                    </button>
-                                  )}
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          assetNotesListEvent(true, id)
+                                        }
+                                        className=" focus-visible:outline-none"
+                                        title="Notes"
+                                      >
+                                        <img
+                                          src="/assets/icons/icon-note.svg"
+                                          alt="icon-note"
+                                          className="w-4.5 h-4.5 dark:invert opacity-80 transition-all duration-300 hover:opacity-100 hover:duration-300 dark:opacity-60 dark:hover:opacity-100 dark:hover:transition-all"
+                                        />
+                                      </button>
+                                    )}
                                 </td>
                               </tr>
                             );
@@ -957,7 +969,7 @@ const PartsList = ({ model_id, activeSubTab, anaglyph_id }) => {
                 allPartsPagination &&
                 Math.ceil(
                   allPartsPagination.total_entries /
-                    allPartsPagination.per_page,
+                  allPartsPagination.per_page,
                 )
               }
               current_page={

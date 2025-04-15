@@ -131,12 +131,10 @@ export const AIAssistanceDatabases = () => {
     }
   }, [processing]);
 
-
   const handleDeleteDatabase = async () => {
     if (details && details.id) {
       await dispatch(deleteDatabase({ id: details.id }));
     }
-  
   };
 
   return (
@@ -358,10 +356,10 @@ export const AIAssistanceDatabases = () => {
           {/* Add a New Database Model : End */}
 
           <DeleteDatabaseConfirmation
-              isDeleteModalOpen={isDeleteModalOpen}
-              setDeleteModalOpen={setDeleteModalOpen}
-              handleDeleteDatabase={handleDeleteDatabase}
-              />
+            isDeleteModalOpen={isDeleteModalOpen}
+            setDeleteModalOpen={setDeleteModalOpen}
+            handleDeleteDatabase={handleDeleteDatabase}
+          />
         </section>
       </Layout>
     </>

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const marqoUploadFilesInstance = (url, data, contentType) => {
+export const uploadFilesInstance = (url, data, contentType) => {
   const headers = {
     "Content-type": contentType,
   };
@@ -12,3 +12,10 @@ export const marqoUploadFilesInstance = (url, data, contentType) => {
   });
   return client;
 };
+
+export const marqoInstance = axios.create({
+  baseURL: process.env.REACT_APP_MARQO_URL,
+  headers: {
+    Accept: "application/json",
+  },
+});
