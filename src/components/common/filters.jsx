@@ -73,7 +73,10 @@ const Filters = ({
   const onChangeHandler = (event, id, param) => {
     let selected = state.selected;
     if (event.target.checked) {
-      selected[event.target.name] = [...selected[event.target.name], id];
+      selected[event.target.name] = [
+        ...(selected[event.target.name] || []),
+        id,
+      ];
     } else {
       selected[event.target.name] = [
         ...selected[event.target.name].filter((item) => item != id),

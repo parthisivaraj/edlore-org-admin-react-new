@@ -285,7 +285,7 @@ const UserRoles = (props) => {
                     </div>
 
                     {/* Filters : Start */}
-                    <Filters
+                    {/* <Filters
                       user_id=""
                       additionalClassName="-mt-6"
                       filters={filters}
@@ -309,7 +309,7 @@ const UserRoles = (props) => {
                           ? "created_at"
                           : ""
                       }
-                    />
+                    /> */}
                   </div>
 
                   {/* Applified Filters */}

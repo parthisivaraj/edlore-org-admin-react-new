@@ -93,7 +93,7 @@ export const AIAssistanceDatabases = () => {
     errors.files = "";
     errors.sizeExceeds = [];
     statefile.forEach((file) => {
-      if (file.size < 25 * 1024 * 1024) {
+      if (file.size < 200 * 1024 * 1024) {
         if (clearedHeaveyFiles.length < 25) {
           readPDF(file);
           clearedHeaveyFiles.push(file.name);
@@ -131,12 +131,10 @@ export const AIAssistanceDatabases = () => {
     }
   }, [processing]);
 
-
   const handleDeleteDatabase = async () => {
     if (details && details.id) {
       await dispatch(deleteDatabase({ id: details.id }));
     }
-  
   };
 
   return (
@@ -358,10 +356,10 @@ export const AIAssistanceDatabases = () => {
           {/* Add a New Database Model : End */}
 
           <DeleteDatabaseConfirmation
-              isDeleteModalOpen={isDeleteModalOpen}
-              setDeleteModalOpen={setDeleteModalOpen}
-              handleDeleteDatabase={handleDeleteDatabase}
-              />
+            isDeleteModalOpen={isDeleteModalOpen}
+            setDeleteModalOpen={setDeleteModalOpen}
+            handleDeleteDatabase={handleDeleteDatabase}
+          />
         </section>
       </Layout>
     </>

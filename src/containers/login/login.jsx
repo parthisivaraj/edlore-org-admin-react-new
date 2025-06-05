@@ -118,7 +118,7 @@ const Login = () => {
                 Welcome to
               </div>
               <h1 className="text-4xl text-white uppercase font-bold mb-2">
-                NAVSEA UNREP PORT HUENEME
+                {logoDetails?.description}
               </h1>
               <div className="mt-2 mb-10">
                 <img src="../assets/logo.svg" alt="logo" className="w-36" />

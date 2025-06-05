@@ -5,10 +5,12 @@ import {
   UPDATE_DATABASE_SUCCESS,
 } from "./types";
 import { SET_TOASTER_SUCCESS } from "../toaster/types";
-import { marqoUploadFilesInstance } from "../../../api/marqo_api_instance";
+import {
+  marqoInstance,
+  uploadFilesInstance,
+} from "../../../api/marqo_api_instance";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf";
 import "pdfjs-dist/legacy/build/pdf.worker";
-import { nodeInstance } from "../../../api/api_instance";
 import axios from "axios";
 import { APIPath, EnvironmentConstant, ServerPath } from "../../../helpers";
 
@@ -34,7 +36,7 @@ async function uploadDocuments(data) {
       });
     }
     let fileURL;
-    if (EnvironmentConstant.mode === "offline") {
+    if (EnvironmentConstant.mode.toLowerCase() === "offline") {
       const formData = new FormData();
       formData.append("file", data.file);
       formData.append("fileName", data.file.name);
@@ -48,7 +50,7 @@ async function uploadDocuments(data) {
       });
       fileURL = `${ServerPath}/uploads/${result.data.file_name}`;
     } else {
-      const awsResponse = await nodeInstance({
+      const awsResponse = await marqoInstance({
         url: `aws/requestUploadUrl`,
         method: "POST",
         data: {
@@ -58,14 +60,14 @@ async function uploadDocuments(data) {
         },
       });
 
-      await marqoUploadFilesInstance(
+      await uploadFilesInstance(
         awsResponse.data.signedUrl,
         data.file,
         data.file.type,
       );
       fileURL = awsResponse.data.keyOrUrl;
     }
-    await nodeInstance({
+    await marqoInstance({
       url: `database/${data.id}`,
       method: "PUT",
       data: {

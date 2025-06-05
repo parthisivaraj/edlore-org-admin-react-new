@@ -6,12 +6,11 @@ import {
 } from "./types";
 import { SET_TOASTER_SUCCESS } from "../toaster/types";
 import { marqoInstance } from "../../../api/marqo_api_instance";
-import { nodeInstance } from "../../../api/api_instance";
 
 async function createApi(data) {
   try {
     const url = `database`;
-    const result = await nodeInstance({
+    const result = await marqoInstance({
       url,
       method: "POST",
       data,

@@ -64,7 +64,14 @@ function* procedure(action) {
     } else {
       yield put({
         type: "ADD_PROCEDURE_FAILED",
-        message: "Some error occurred",
+        message: [
+          {
+            key: "name",
+            message: e?.response?.data?.error
+              ? e.response.data.error
+              : "Some error occurred",
+          },
+        ],
       });
     }
     if (e.response.status === 500) {
@@ -72,6 +79,13 @@ function* procedure(action) {
         content: e.response.data.errors
           ? e.response.data.errors
           : "Something went wrong!",
+        type: "failed",
+      };
+      yield put({ type: "SET_TOASTER_SUCCESS", data: toastrFailedData });
+    }
+    if (e.response.status === 400) {
+      const toastrFailedData = {
+        content: e?.response?.data?.error || "Something went wrong!",
         type: "failed",
       };
       yield put({ type: "SET_TOASTER_SUCCESS", data: toastrFailedData });

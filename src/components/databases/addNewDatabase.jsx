@@ -83,7 +83,11 @@ export const AddNewDatabase = () => {
     event.preventDefault();
     if (validate(state.errors)) {
       const data = {
-        name: state.name.replace(/\s+/g, " ").trim().replace(" ", "-"),
+        name: state.name
+          .replaceAll(/\s+/g, " ")
+          .trim()
+          .replaceAll(" ", "-")
+          .toLowerCase(),
       };
       dispatch(addDatabase(data));
     } else {

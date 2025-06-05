@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
-import Markdown from 'react-markdown'
+import Markdown from "react-markdown";
 import Layout from "../../layout";
 import {
   getAllDatabases,
@@ -42,10 +42,10 @@ export const AIQuery = () => {
   const chatContainerRef = useRef(null);
   useEffect(() => {
     if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
     }
   }, [conversations]); // This hook runs every time the 'conversations' array changes
-
 
   const search = () => {
     dispatch(
@@ -70,11 +70,12 @@ export const AIQuery = () => {
       (x) => x.fileName.toLowerCase() === item.filename.toLowerCase(),
     );
     if (tempLink) {
-      setPDFData({
-        url: tempLink.url,
-        page: item.pagenumber,
-      });
-      setOpenPDF(true);
+      window.open(`${tempLink.url}#page=${item.pagenumber}`, "_blank");
+      // setPDFData({
+      //   url: tempLink.url,
+      //   page: item.pagenumber,
+      // });
+      // setOpenPDF(true);
     }
   };
 
@@ -159,7 +160,10 @@ export const AIQuery = () => {
                 </div>
               </div>
             ) : (
-              <div className="w-full h-full bg-white dark:bg-darkBg py-7 px-7 border border-gray2 dark:border-opacity-10 rounded-3xl drop-shadow-md dark:dorp-shadow-none overflow-y-auto chat-container" ref={chatContainerRef}>
+              <div
+                className="w-full h-full bg-white dark:bg-darkBg py-7 px-7 border border-gray2 dark:border-opacity-10 rounded-3xl drop-shadow-md dark:dorp-shadow-none overflow-y-auto chat-container"
+                ref={chatContainerRef}
+              >
                 {conversations.map((item) => (
                   <div
                     key={item.id}

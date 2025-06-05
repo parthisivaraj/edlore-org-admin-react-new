@@ -99,9 +99,11 @@ const DeviceModels = (props) => {
   }, [top_level_tab_id]);
 
   useEffect(() => {
-    const matchedSubTab = subtabs.find((tab) => tab.slug === nested_tab_id);
-    if (matchedSubTab) {
-      subTabChangeHandler(matchedSubTab.id);
+    const matchedSubTab = subtabs.findIndex(
+      (tab) => tab.slug === nested_tab_id,
+    );
+    if (matchedSubTab > 0) {
+      subTabChangeHandler(matchedSubTab);
     } else {
       setActiveSubTab(0);
     }

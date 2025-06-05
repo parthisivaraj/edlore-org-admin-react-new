@@ -38,7 +38,7 @@ function* updatePart(action) {
     anaglyph_id: action.payload.anaglyph_id,
     search: "",
     page: 0,
-    limit: 10,
+    limit: 50,
   };
 
   try {

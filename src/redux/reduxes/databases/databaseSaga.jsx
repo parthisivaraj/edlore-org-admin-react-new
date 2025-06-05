@@ -5,11 +5,12 @@ import {
   GET_ALL_DATABASES_SUCCESS,
 } from "./types";
 import { nodeInstance } from "../../../api/api_instance";
+import { marqoInstance } from "../../../api/marqo_api_instance";
 
 async function getApi(data) {
   try {
     const url = `database`;
-    const result = await nodeInstance({
+    const result = await marqoInstance({
       url,
       method: "GET",
       data,
@@ -23,7 +24,10 @@ async function getApi(data) {
 function* fetchDatabase(action) {
   try {
     const res = yield call(getApi, action.payload);
-    yield put({ type: GET_ALL_DATABASES_SUCCESS, databaseList: res.data.data });
+    yield put({
+      type: GET_ALL_DATABASES_SUCCESS,
+      databaseList: res.data?.data || res.data,
+    });
   } catch (e) {
     yield put({ type: GET_ALL_DATABASES_FAILED, message: e.message });
   }

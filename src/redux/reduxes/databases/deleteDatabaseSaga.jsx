@@ -7,10 +7,11 @@ import {
   DELETE_DATABASE_SUCCESS,
   GET_ALL_DATABASES_REQUESTED,
 } from "./types";
+import { marqoInstance } from "../../../api/marqo_api_instance";
 
 async function getApi(data) {
   try {
-    const result = nodeInstance({
+    const result = marqoInstance({
       url: `database/${data.id}`,
       method: "DELETE",
     }).then((response) => {

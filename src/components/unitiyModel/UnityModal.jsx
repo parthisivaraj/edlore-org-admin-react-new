@@ -43,6 +43,26 @@ export const UnityModal = ({ open, onClose, partName, partData, addNotes }) => {
     window.devicePixelRatio,
   );
 
+  const [size, setSize] = useState({
+    height: window.innerHeight * 0.8, // 80vh
+    width: window.innerHeight * 0.8 * (16 / 9), // Maintain 16:9 aspect ratio
+  });
+
+  useEffect(() => {
+    const updateSize = () => {
+      const newHeight = window.innerHeight * 0.8; // 80vh
+      setSize({
+        height: newHeight,
+        width: newHeight * (16 / 9), // Maintain 16:9 aspect ratio
+      });
+    };
+
+    window.addEventListener("resize", updateSize);
+    updateSize(); // Call once to set initial size
+
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   useEffect(
     function () {
       // A function which will update the device pixel ratio of the Unity
@@ -124,12 +144,11 @@ export const UnityModal = ({ open, onClose, partName, partData, addNotes }) => {
                 <Unity
                   unityProvider={unityProvider}
                   className="unity"
-                  // style={{
-                  //   visibility: isLoaded && partName === "123" ? "visible" : "hidden",
-                  //   width: "100%",
-                  //   height: 800,
-                  // }}
                   devicePixelRatio={devicePixelRatio}
+                  style={{
+                    width: `${size.width}px`,
+                    height: `${size.height}px`,
+                  }}
                 />
               </div>
               {selected?.partId && (

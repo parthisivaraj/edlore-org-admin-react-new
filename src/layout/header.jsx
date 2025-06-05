@@ -59,12 +59,12 @@ const Header = () => {
             <Link
               to="/"
               exact={true}
-              className="inline-block max-w-[300px] h-full overflow-hidden"
+              className="inline-block max-w-[200px] h-full overflow-hidden"
             >
               <img
                 src={authData.org_logo}
                 alt="organization-logo"
-                className="max-w-[300px] h-[50px] object-contain my-auto"
+                className="max-w-[200px] h-[50px] object-contain my-auto"
               />
             </Link>
           </div>

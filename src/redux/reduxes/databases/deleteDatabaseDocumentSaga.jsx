@@ -6,10 +6,11 @@ import {
 } from "./types";
 import { SET_TOASTER_SUCCESS } from "../toaster/types";
 import { nodeInstance } from "../../../api/api_instance";
+import { marqoInstance } from "../../../api/marqo_api_instance";
 
 async function deleteDocumentAPI(data) {
   try {
-    await nodeInstance({
+    await marqoInstance({
       url: `database/remove-document`,
       method: "POST",
       data: {

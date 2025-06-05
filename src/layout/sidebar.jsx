@@ -64,9 +64,7 @@ const Sidebar = (props) => {
   const manipulatedMenus = useMemo(() => {
     return menus.filter(
       (x) =>
-        (EnvironmentConstant.mode === "offline" &&
-          EnvironmentConstant.machine === "SERVER") ||
-        x.title !== "AI Assistance",
+        EnvironmentConstant.machine === "SERVER" || x.title !== "AI Assistance",
     );
   }, []);
 
@@ -185,7 +183,7 @@ const Sidebar = (props) => {
                     collapseSubMenu === true && id === collapseId
                       ? "bg-white bg-opacity-10 dark:bg-black1 dark:bg-opacity-100"
                       : icon === "workorders" &&
-                        EnvironmentConstant.mode === "offline"
+                        EnvironmentConstant.mode.toLowerCase() === "offline"
                       ? "opacity-50"
                       : ""
                   }
@@ -357,7 +355,7 @@ const Sidebar = (props) => {
                 </span>
               </NavLink>
             </li> */}
-            {EnvironmentConstant.mode === "offline" &&
+            {EnvironmentConstant.mode.toLowerCase() === "offline" &&
               EnvironmentConstant.machine === "SERVER" && (
                 <li data-title="Slave Machine">
                   <NavLink
@@ -416,7 +414,7 @@ const Sidebar = (props) => {
             </li> */}
 
             {/* Sync */}
-            {/* {EnvironmentConstant.mode === "offline" &&
+            {/* {EnvironmentConstant.mode.toLowerCase() === "offline" &&
               EnvironmentConstant.machine === "SERVER" && (
                 <li data-title="Sync">
                   <NavLink

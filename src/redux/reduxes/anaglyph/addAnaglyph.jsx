@@ -53,7 +53,7 @@ function* addAnaglyph(action) {
     } else {
       yield put({
         type: "ADD_ANAGLYPH_FAILED",
-        message: "Some error occurred",
+        message: undefined,
       });
     }
     if (e.response.status === 500) {
@@ -61,6 +61,13 @@ function* addAnaglyph(action) {
         content: e.response.data.errors
           ? e.response.data.errors
           : "Something went wrong!",
+        type: "failed",
+      };
+      yield put({ type: "SET_TOASTER_SUCCESS", data: toastrFailedData });
+    }
+    if (e.response.status === 400) {
+      const toastrFailedData = {
+        content: e.response?.data?.message || "Something went wrong!",
         type: "failed",
       };
       yield put({ type: "SET_TOASTER_SUCCESS", data: toastrFailedData });

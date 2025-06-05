@@ -294,13 +294,16 @@ const DeviceDetails = (props) => {
                         ) : (
                           <>
                             {/* If no device logs found */}
-                            {EnvironmentConstant.mode === "offline" ? <OnlyCloudAllowed />:
-                            <div className="px-10 py-20 text-center">
-                              <p className="text-lg text-black2 dark:text-gray2 opacity-50">
-                                No Work Order History Found for this Device
-                              </p>
-                            </div>
-                            }
+                            {EnvironmentConstant.mode.toLowerCase() ===
+                            "offline" ? (
+                              <OnlyCloudAllowed />
+                            ) : (
+                              <div className="px-10 py-20 text-center">
+                                <p className="text-lg text-black2 dark:text-gray2 opacity-50">
+                                  No Work Order History Found for this Device
+                                </p>
+                              </div>
+                            )}
                           </>
                         )}
                       </>
@@ -380,59 +383,62 @@ const DeviceDetails = (props) => {
                         )}
                     </div>
 
-                    {EnvironmentConstant.mode === "offline" ? <OnlyCloudAllowed />:
-                    <>
-                      {deviceWorkordersLoading ? (
-                        <Skeleton
-                          count={2}
-                          height={100}
-                          baseColor="#f5f5f5"
-                          highlightColor="#e1e1e1"
-                          borderRadius="20"
-                          enableAnimation="true"
-                          className="mb-3 dark:bg-darkMainBg"
-                          duration={2.5}
-                          inline={true}
-                        />
-                      ) : (
-                        <>
-                          {deviceWorkordersList &&
-                          deviceWorkordersList.length > 0 ? (
-                            <div className="w-full h-[250px] pr-5 overflow-scroll scrollbar-thin scrollbar-thumb-black2 dark:scrollbar-thumb-darkMainBg scrollbar-track-primary dark:scrollbar-track-black1 scrollbar-thumb-rounded-3xl scrollbar-track-rounded-3xl">
-                              {deviceWorkordersList.map((workorder, index) => {
-                                const {
-                                  id,
-                                  device_id,
-                                  model_id,
-                                  title,
-                                  work_order_number,
-                                  work_order_status,
-                                  created_at_formated,
-                                } = workorder;
-                                return (
-                                  <DeviceActiveWorkOrders
-                                    key={id}
-                                    wo_id={id}
-                                    title={title}
-                                    workOrderNumber={work_order_number}
-                                    workOrderStatus={work_order_status}
-                                    createdDate={created_at_formated}
-                                    device_id={device_id}
-                                    model_id={model_id}
-                                  />
-                                );
-                              })}
-                            </div>
-                          ) : (
-                            <div className="text-center my-[80px] text-white dark:text-gray2 opacity-50">
-                              No Active Work Orders Found for this Device
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </>
-}
-
+                    {EnvironmentConstant.mode.toLowerCase() === "offline" ? (
+                      <OnlyCloudAllowed />
+                    ) : (
+                      <>
+                        {deviceWorkordersLoading ? (
+                          <Skeleton
+                            count={2}
+                            height={100}
+                            baseColor="#f5f5f5"
+                            highlightColor="#e1e1e1"
+                            borderRadius="20"
+                            enableAnimation="true"
+                            className="mb-3 dark:bg-darkMainBg"
+                            duration={2.5}
+                            inline={true}
+                          />
+                        ) : (
+                          <>
+                            {deviceWorkordersList &&
+                            deviceWorkordersList.length > 0 ? (
+                              <div className="w-full h-[250px] pr-5 overflow-scroll scrollbar-thin scrollbar-thumb-black2 dark:scrollbar-thumb-darkMainBg scrollbar-track-primary dark:scrollbar-track-black1 scrollbar-thumb-rounded-3xl scrollbar-track-rounded-3xl">
+                                {deviceWorkordersList.map(
+                                  (workorder, index) => {
+                                    const {
+                                      id,
+                                      device_id,
+                                      model_id,
+                                      title,
+                                      work_order_number,
+                                      work_order_status,
+                                      created_at_formated,
+                                    } = workorder;
+                                    return (
+                                      <DeviceActiveWorkOrders
+                                        key={id}
+                                        wo_id={id}
+                                        title={title}
+                                        workOrderNumber={work_order_number}
+                                        workOrderStatus={work_order_status}
+                                        createdDate={created_at_formated}
+                                        device_id={device_id}
+                                        model_id={model_id}
+                                      />
+                                    );
+                                  },
+                                )}
+                              </div>
+                            ) : (
+                              <div className="text-center my-[80px] text-white dark:text-gray2 opacity-50">
+                                No Active Work Orders Found for this Device
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </>
+                    )}
                   </>
                 )}
               </div>

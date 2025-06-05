@@ -187,9 +187,11 @@ const AddNewPartModal = ({
         attached_medias_attributes: media_attributes,
         page: paginate.current_page,
 
-        manufacturer_code: state.manufacturer_code.replace(/\s+/g, " ").trim(),
-        nomenclature: state.nomenclature.replace(/\s+/g, " ").trim(),
-        nsn_number: state.nsn_number.replace(/\s+/g, " ").trim(),
+        manufacturer_code: (state.manufacturer_code || "")
+          .replace(/\s+/g, " ")
+          .trim(),
+        nomenclature: (state.nomenclature || "").replace(/\s+/g, " ").trim(),
+        nsn_number: (state.nsn_number || "").replace(/\s+/g, " ").trim(),
         quantity: state.quantity,
       };
       if (update) {
