@@ -8,7 +8,7 @@
 //     }
 //     try {
 //         const result = instance({
-//             url: "v1/work_order",
+//             url: "/work_order",
 //             method: "POST",
 //             data: formData,
 //         }).then((response) => {

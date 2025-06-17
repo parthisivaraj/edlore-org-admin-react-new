@@ -5,7 +5,7 @@ async function getApi(data) {
     const search = data.search.replace(/\s+/g, ' ').trim();
     try {
         const result = instance({
-            url: `v1/work_order?status_type=completed&search=${encodeURIComponent(search)}&limit=${data.limit}&page=${data.page + 1}&active=true&sort_column=${data.sorting}&sort_order=${data.sort == 1 ? "asc" : data.sort == 2 ? "desc" : ""}&filters=${JSON.stringify(data.filter)}`,
+            url: `/work_order?status_type=completed&search=${encodeURIComponent(search)}&limit=${data.limit}&page=${data.page + 1}&active=true&sort_column=${data.sorting}&sort_order=${data.sort == 1 ? "asc" : data.sort == 2 ? "desc" : ""}&filters=${JSON.stringify(data.filter)}`,
             method: "GET",
         }).then((response) => {
             return response;

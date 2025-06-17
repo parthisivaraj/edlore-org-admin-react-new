@@ -17,7 +17,7 @@ async function getApi(data) {
 
   try {
     const result = instance({
-      url: `v1/work_order/${data.id}/edit_second_page`,
+      url: `/work_order/${data.id}/edit_second_page`,
       method: "PATCH",
       data: putData,
     }).then((response) => {

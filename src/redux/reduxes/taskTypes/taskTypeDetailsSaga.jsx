@@ -9,7 +9,7 @@ async function getApi(data) {
     }
     try {
         const result = instance({
-            url: `v1/task_type/${data.taskTypeId}`,
+            url: `/task_type/${data.taskTypeId}`,
             method: "GET",
             data: taskTypeData
         }).then((response) => {

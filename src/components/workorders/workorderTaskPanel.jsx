@@ -12,7 +12,8 @@ import { getAllTroubleshoot } from "../../redux/reduxes/troubleshoot/troubleshoo
 import { getModelProcedure } from "../../redux/reduxes/procedure/procedureAction";
 import { getAllErrorCodes } from '../../redux/reduxes/errorCodes/errorCodesAction';
 import { getAllmCodes } from '../../redux/reduxes/errorCodes/errorCodesAction';
-import { createWorkorderTabTwo, changeStepInCreation, updateWorkOrderStep2 } from "../../redux/reduxes/workorders/workorderAction";
+import { createWorkorderTabTwo, changeStepInCreation, updateWorkOrderStep2, getWorkorderDetails } from "../../redux/reduxes/workorders/workorderAction";
+
 import moment from "moment";
 import CreateErrorCode from '../errorCodes/eCodes/createErrorCode';
 import CreatemCode from '../errorCodes/mCodes/createmCode';
@@ -29,7 +30,6 @@ const WorkorderTaskPanel = ({ wo_id, activeTab }) => {
   const dispatch = useDispatch();
   // let query = useQuery();
   // const publish = query.get("publish")
-
   // Fetch Data
   const tasktypes = useSelector(state => state.tasktypes.taskTypesList);
   const troubleshoots = useSelector(state => state.troubleshoot.troubleshootList);
@@ -62,55 +62,117 @@ const WorkorderTaskPanel = ({ wo_id, activeTab }) => {
   const handleModalBackdrop = () => { }
 
   useEffect(() => {
-    if (activeTab == 1) {
+    if (!id || wo_id !== "new") return;
+  
+    // Get work order details
+    dispatch(getWorkorderDetails({
+      id,
+      details_page: "false",
+    }));
+  
+  }, [id, wo_id, dispatch]);
+  
+  useEffect(() => {
+    if (activeTab !== 1) return;
+    const resolvedModelId = wo_id === "new"
+      ? (model_id != undefined ? model_id:details?.device?.model?.id)
+      : details?.device?.model?.id;
+  
+    if (!resolvedModelId) return;
+  
+    const commonPayload = {
+      search: "",
+      page: 0,
+      paginate: false,
+      model_id: resolvedModelId,
+      sorting: "",
+      sort: 0,
+      filter: {},
+      limit: 20,
+    };
+  
+    dispatch(getAllErrorCodes({ ...commonPayload, id: resolvedModelId }));
+    dispatch(getAllmCodes({ ...commonPayload, id: resolvedModelId }));
+    dispatch(getModelProcedure(commonPayload));
+    dispatch(getAllTroubleshoot(commonPayload));
+  
+  }, [activeTab, details, model_id, wo_id, dispatch]);
 
-      const troubleShootData = {
-        search: "",
-        page: 0,
-        paginate: false,
-        model_id: wo_id == "new" ? model_id : details && details.device && details.device.model && details.device.model.id && details.device.model.id,
-        sorting: "",
-        filter: {},
-        sort: 0,
-        limit: 20
-      }
-      const procedureData = {
-        search: "",
-        page: 0,
-        paginate: false,
-        model_id: wo_id == "new" ? model_id : details && details.device && details.device.model && details.device.model.id && details.device.model.id,
-        filter: {},
-        sorting: "",
-        sort: 0,
-        limit: 20
-      }
-      const errorData = {
-        search: "",
-        page: 0,
-        model_id: wo_id == "new" ? model_id : details && details.device && details.device.model && details.device.model.id && details.device.model.id,
-        id: wo_id == "new" ? model_id : details && details.device && details.device.model && details.device.model.id && details.device.model.id,
-        paginate: false,
-        sorting: "",
-        sort: 0,
-        filter: {},
-        limit: 20
-      }
+  // useEffect(() => {
+  //   if (!id || wo_id !== "new") return;
+  //   dispatch(getWorkorderDetails({
+  //     id,
+  //     details_page: "false",
+  //   }));
+  // }, [id, wo_id, dispatch]);
 
-      // dispatch(getAllAlarmCodes(errorData));
-      dispatch(getAllErrorCodes(errorData));
-      dispatch(getAllmCodes(errorData));
-      dispatch(getModelProcedure(procedureData));
-      dispatch(getAllTroubleshoot(troubleShootData));
-    }
-    // get Details
-    // if (wo_id !== "new") {
-    //   const data = {
-    //     id: id,
-    //   }
-    //   dispatch(getWorkorderDetails(data));
-    // }
+  
+  // useEffect(() => {
+  //   if (!id || wo_id !== "new") return;
+  //   dispatch(getWorkorderDetails({
+  //     id,
+  //     details_page: "false",
+  //   }));
+  //   //  if (wo_id == "new" && id != null) {
+  //   //       const data = {
+  //   //         id: id,
+  //   //         details_page: "false",
+  //   //       }
+  //   //       dispatch(getWorkorderDetails(data));
+  //   //     } else {
+  //   //       // dispatch(resetWoDetails());
+  //   //       // dispatch(getWorkorderDetails());
+  //   //     }
 
-  }, [details, model_id]);
+  //   if (activeTab == 1) {
+
+  //     const troubleShootData = {
+  //       search: "",
+  //       page: 0,
+  //       paginate: false,
+  //       model_id: wo_id == "new" ? model_id : details && details.device && details.device.model && details.device.model.id && details.device.model.id,
+  //       sorting: "",
+  //       filter: {},
+  //       sort: 0,
+  //       limit: 20
+  //     }
+  //     const procedureData = {
+  //       search: "",
+  //       page: 0,
+  //       paginate: false,
+  //       model_id: wo_id == "new" ? model_id : details && details.device && details.device.model && details.device.model.id && details.device.model.id,
+  //       filter: {},
+  //       sorting: "",
+  //       sort: 0,
+  //       limit: 20
+  //     }
+  //     const errorData = {
+  //       search: "",
+  //       page: 0,
+  //       model_id: wo_id == "new" ? model_id : details && details.device && details.device.model && details.device.model.id && details.device.model.id,
+  //       id: wo_id == "new" ? model_id : details && details.device && details.device.model && details.device.model.id && details.device.model.id,
+  //       paginate: false,
+  //       sorting: "",
+  //       sort: 0,
+  //       filter: {},
+  //       limit: 20
+  //     }
+  //     debugger
+  //     // dispatch(getAllAlarmCodes(errorData));
+  //     dispatch(getAllErrorCodes(errorData));
+  //     dispatch(getAllmCodes(errorData));
+  //     dispatch(getModelProcedure(procedureData));
+  //     dispatch(getAllTroubleshoot(troubleShootData));
+  //   }
+  //   // get Details
+  //   // if (wo_id !== "new") {
+  //   //   const data = {
+  //   //     id: id,
+  //   //   }
+  //   //   dispatch(getWorkorderDetails(data));
+  //   // }
+
+  // }, [details, model_id, dispatch]);
 
 
   useEffect(() => {

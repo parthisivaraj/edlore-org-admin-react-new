@@ -224,7 +224,7 @@ const ActiveWorkOrders = (props) => {
       page: e.selected,
       limit: 10,
       paginate: true,
-      filter: filters.selected_filters ? filters.selected_filters : {},
+      filter: filters?.selected_filters ? filters.selected_filters : {},
       sort:
         sortByActiveWONumber != 0
           ? sortByActiveWONumber
@@ -986,7 +986,7 @@ const ActiveWorkOrders = (props) => {
                                         width="10%"
                                         className="px-4 xl:px-8 py-4 text-sm capitalize"
                                       >
-                                        {work_order_status.replace("_", " ")}{" "}
+                                        {work_order_status?.replace("_", " ")}{" "}
                                       </td>
                                       <td
                                         width="10%"

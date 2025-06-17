@@ -4,7 +4,7 @@ import instance from "../../../api/api_instance";
 async function getApi(data) {
     try {
         const result = instance({
-            url: `v1/task_type/${data.id}`,
+            url: `/task_type/${data.id}`,
             method: "DELETE",
         }).then((response) => {
             return response;

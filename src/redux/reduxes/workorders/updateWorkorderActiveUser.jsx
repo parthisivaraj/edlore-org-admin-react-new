@@ -16,7 +16,7 @@ async function getApi(data) {
 
   try {
     const result = instance({
-      url: `v1/work_order/${data.wo_id}/change_active_user`,
+      url: `/work_order/${data.wo_id}/change_active_user`,
       method: "POST",
       data: postData,
     }).then((response) => {

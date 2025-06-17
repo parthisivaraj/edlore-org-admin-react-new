@@ -17,7 +17,7 @@ async function getApi(data) {
 
   try {
     const result = instance({
-      url: `/v1/work_order/${data.id}`,
+      url: `/work_order/${data.id}`,
       method: "PUT",
       data: putData,
     }).then((response) => {
@@ -32,7 +32,11 @@ async function getApi(data) {
 function* addWorkorder(action) {
   try {
     const res = yield call(getApi, action.payload);
-    yield put({ type: "ADD_TSAK_TAB_SUCCESS", stepTwoData: res.data.work_order });
+    // yield put({ type: "ADD_TSAK_TAB_SUCCESS", stepTwoData: res.data.work_order });
+    let data = res.data;
+    data.due_date = action.payload.due_date;
+    data.task_type = action.payload.task_type;
+    yield put({ type: "ADD_TSAK_TAB_SUCCESS", stepTwoData: data });
   } catch (e) {
     yield put({ type: "ADD_TSAK_TAB_FAILED", message: e.response.data });
     if (e.response.status == 400) {

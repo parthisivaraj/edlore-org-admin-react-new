@@ -4,7 +4,7 @@ import instance from "../../../api/api_instance";
 async function getApi(data) {
     try {
         const result = instance({
-            url: `v1/model/${data.model_id}/device/${data.device_id}/work_order_history`,
+            url: `/model/${data.model_id}/device/${data.device_id}/work_order_history`,
             method: "GET"
         }).then((response) => {
             return response;

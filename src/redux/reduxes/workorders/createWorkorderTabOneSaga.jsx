@@ -2,15 +2,17 @@ import { call, put, takeEvery } from 'redux-saga/effects'
 import instance from "../../../api/api_instance";
 
 async function getApi(data) {
-  var formData = new FormData();
-  formData.append(`title`, data.name);
-  formData.append(`device_id`, data.device_id);
-  formData.append(`work_order_number`, data.work_order_number);
-  formData.append(`status`, 4);
+  // var formData = new FormData();
+  // formData.append(`title`, data.name);
+  // formData.append(`device_id`, data.device_id);
+  // formData.append(`work_order_number`, data.work_order_number);
+  // formData.append(`status`, 4);
+
+  var formData = {'title':data.name, 'device_id': parseInt(data.device_id), 'work_order_number':data.work_order_number, 'status':4 };
 
   try {
     const result = instance({
-      url: "v1/work_order",
+      url: "/work_order",
       method: "POST",
       data: formData,
     }).then((response) => {

@@ -18,7 +18,8 @@ const AssignToTabPanel = ({ wo_id, activeTab }) => {
   const allUsersByRoleList = useSelector(state => state.users.allUsersByRoleList);
   const addTabThreeLoading = useSelector(state => state.workorders.addTabThreeLoading);
   const updateWoStepThreeLoading = useSelector(state => state.workorders.updateWoStepThreeLoading);
-
+  const due_date = useSelector(state => state.workorders.due_date);
+  const task_type = useSelector(state => state.workorders.task_type);
   // States
   const [state, setState] = useState({
     assign_to: "group",
@@ -27,6 +28,8 @@ const AssignToTabPanel = ({ wo_id, activeTab }) => {
     user_group: "",
     task_priority: "low",
     status: "",
+    due_date: "",
+    task_type: "",
     // task_due_date: "",
     wo_description: "",
     selectedFilesIds: [],
@@ -58,6 +61,8 @@ const AssignToTabPanel = ({ wo_id, activeTab }) => {
       user_group: details && details.assigned_to && details.assigned_to.group && details.assigned_to.group.id ? details.assigned_to.group.id : "",
       task_priority: details && details.priority && details.priority,
       status: details && details.status && details.status,
+      due_date: details && details.due_date ? details.due_date : "",
+      task_type: details && details.task_type ? details.task_type : "",
       // task_due_date: "",
       wo_description: details && details.note ? details.note : "",
       existingFiles: details && details.attached_medias && details.attached_medias,
@@ -258,7 +263,6 @@ const AssignToTabPanel = ({ wo_id, activeTab }) => {
 
   const submitHandler = (event, status) => {
     event.preventDefault();
-
     status == "active" ? setDraftWorkorderLoading(false) : setDraftWorkorderLoading(true);
     if (status == "active") {
       if (validateForm(state.errors, status)) {
@@ -290,6 +294,8 @@ const AssignToTabPanel = ({ wo_id, activeTab }) => {
           note: state.wo_description,
           media_attributes: media_attributes,
           id: wo_id == "new" ? id : wo_id,
+          due_date: due_date,
+          task_type: task_type,
         }
         // dispatch(createWorkorderTabThree(data));
         if (wo_id == "new") {
@@ -351,6 +357,8 @@ const AssignToTabPanel = ({ wo_id, activeTab }) => {
         note: state.wo_description,
         media_attributes: media_attributes,
         id: wo_id == "new" ? id : wo_id,
+        due_date: due_date,
+        task_type: task_type,
       }
       if (state.assign_to == "group" && state.user_group && state.user_group != "") {
         data['assigned_to_id'] = state.user_group

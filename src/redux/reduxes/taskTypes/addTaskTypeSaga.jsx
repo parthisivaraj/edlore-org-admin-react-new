@@ -8,7 +8,7 @@ async function getApi(data) {
     }
     try {
         const result = instance({
-            url: "v1/task_type",
+            url: "/task_type",
             method: "POST",
             data: taskTypeData,
         }).then((response) => {

@@ -7,7 +7,7 @@ async function getApi(data) {
     }
     try {
         const result = instance({
-            url: `v1/model/${data.model_id}/device/${data.device_id}/active_work_orders`,
+            url: `/model/${data.model_id}/device/${data.device_id}/active_work_orders`,
             method: "GET",
             data: getData,
         }).then((response) => {

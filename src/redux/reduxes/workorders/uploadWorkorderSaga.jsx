@@ -7,7 +7,7 @@ async function getApi(data) {
     };
     try {
         const result = instance({
-            url: "v1/work_order/work_order_pdf_reading",
+            url: "/work_order/work_order_pdf_reading",
             method: "POST",
             data: postData,
         }).then((response) => {

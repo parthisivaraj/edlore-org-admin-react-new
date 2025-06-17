@@ -9,13 +9,15 @@ async function getApi(data) {
     assigned_to_id: data.assigned_to_id,
     assigned_to_type: data.assigned_to_type,
     role_id: data.user_role_id,
-    attached_medias_attributes: data.media_attributes
+    attached_medias_attributes: data.media_attributes,
+    due_date: data.due_date,
+    task_type_id: data.task_type,
   }
   // const options = {}
 
   try {
     const result = instance({
-      url: `/v1/work_order/${data.id}`,
+      url: `/work_order/${data.id}`,
       method: "PUT",
       data: putData,
     }).then((response) => {
@@ -34,8 +36,8 @@ function* addWorkorderThird(action) {
       content: `${action.payload.status == 1 ? "Work Order created Successfully" : "Work Order Saved to Draft Successfully"}`,
       type: "success"
     }
-
-    yield put({ type: "ADD_ASSIGN_TAB_SUCCESS", stepThreeData: res.data.work_order });
+    // yield put({ type: "ADD_ASSIGN_TAB_SUCCESS", stepThreeData: res.data.work_order });
+    yield put({ type: "ADD_ASSIGN_TAB_SUCCESS", stepThreeData: res.data });
     if (action.payload.status == 1) {
       window.location = "/active-workorders/all?device=all&all&device_specific=false}"
     } else {

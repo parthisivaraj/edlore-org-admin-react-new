@@ -9,7 +9,7 @@ async function getApi(data) {
 
   try {
     const result = instance({
-      url: `v1/work_order/${data.wo_id}/edit_first_page`,
+      url: `/work_order/${data.wo_id}/edit_first_page`,
       method: "PATCH",
       data: formData,
     }).then((response) => {

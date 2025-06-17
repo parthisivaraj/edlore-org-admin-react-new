@@ -74,7 +74,7 @@ const TaskOverviewPanel = ({ wo_id }) => {
         work_order_number: details.work_order_number ? details.work_order_number : "",
         due_date: details.due_date ? details.due_date : "",
         device_name: (details.device && details.device.name) ? details.device.name : "",
-        category_name: (details.device && details.device && details.device.model && details.device.model.which_category) ? details.device.model.which_category == "primary" ? details.device.model.primary_category.name : details.device.model.secondary_category.name : "",
+        category_name: (details.device && details.device && details.device.model && details.device.model.which_category) ? details.device.model.which_category == "primary" ? details.device.model.primary_category?.name : details.device.model.secondary_category?.name : "",
         model_name: (details.device && details.device && details.device.model && details.device.model.title) ? details.device.model.title : "",
         model_id: (details.device && details.device && details.device.model && details.device.model.id) ? details.device.model.id : "",
         task_type_name: (details.task_type && details.task_type.title) ? details.task_type.title : "",
